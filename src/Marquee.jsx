@@ -265,6 +265,7 @@ const CSS = `
    font-size:29px; line-height:1; letter-spacing:.01em; }
 .mq-meta { font-size:13px; color:var(--dim); margin-top:6px; }
 .mq-meta em { font-style:normal; color:var(--screen); }
+.mq-progNote { font-size:12.5px; color:var(--reel); margin-top:9px; letter-spacing:.02em; }
 .mq-blurb { font-size:13.5px; line-height:1.5; color:#C7CBE6; margin-top:9px; max-width:62ch; }
 .mq-badges { display:flex; gap:7px; flex-wrap:wrap; margin-top:10px; }
 .mq-badge { font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; font-size:11px;
@@ -998,6 +999,7 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
                     {f.oneNight && <span className="mq-badge b-one">One screening only</span>}
                     {fmts.map((x) => <span key={x} className="mq-badge b-fmt">{FORMAT_LABEL[x]}</span>)}
                   </div>
+                  {f.note && <p className="mq-progNote">{f.note}</p>}
                   <p className="mq-blurb">{f.blurb}</p>
                   <div className="mq-scores">
                     <div className="mq-score"><b className={scoreClass(f.critic)}>{f.critic}</b><span>critics</span></div>
