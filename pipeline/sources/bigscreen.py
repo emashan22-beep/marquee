@@ -111,14 +111,32 @@ def _warm_up(theater_key: str) -> None:
     _warmed.add(theater_key)
 
 
+def _plain(html: str) -> str:
+    """Tag-free, whitespace-collapsed text. Markup inside a heading must
+    not defeat the date check."""
+    txt = BeautifulSoup(html, "html.parser").get_text(" ", strip=True)
+    txt = re.sub(r"\s+", " ", txt)
+    # "Friday </b>, August" -> "Friday, August"
+    return re.sub(r"\s+([,.])", r"\1", txt)
+
+
+def page_date_ok(html: str, date: dt.date) -> bool:
+    want = f"{WEEKDAYS[date.weekday()]}, {MONTHS[date.month - 1]} {date.day}, {date.year}"
+    return f"Showtimes on {want}" in _plain(html)
+
+
 def _verify_page(html: str, theater_key: str, date: dt.date) -> None:
     """Refuse to parse a page that isn't the one we asked for."""
-    want_date = f"{WEEKDAYS[date.weekday()]}, {MONTHS[date.month - 1]} {date.day}, {date.year}"
-    if f"Showtimes on {want_date}" not in html:
-        raise RuntimeError(
-            f"{theater_key}: page is not {want_date} — got redirected or served a cache. "
-            f"Nothing parsed."
-        )
+    if page_date_ok(html, date):
+        return
+    text = _plain(html)
+    hint = "looks like the theater directory" if "Theaters Found" in text else "unknown page"
+    found = re.search(r"Showtimes on ([A-Z][a-z]+, [A-Z][a-z]+ \d{1,2}, \d{4})", text)
+    raise RuntimeError(
+        f"{theater_key}: wanted {date:%A, %B %-d, %Y} but got "
+        f"{found.group(1) if found else hint} ({len(html):,} bytes). "
+        f"Session cookie probably not set."
+    )
 
 
 def scrape(theater_key: str, date: dt.date) -> list[dict]:
@@ -169,6 +187,36 @@ def scrape(theater_key: str, date: dt.date) -> list[dict]:
             })
 
     return rows
+
+
+def probe(theater_key: str, date: dt.date) -> dict:
+    """Fetch one page and report what came back, without parsing.
+
+    This is what to run when a scrape fails: it tells you whether you got
+    the right page at all before you start blaming the parser.
+    """
+    _warm_up(theater_key)
+    url = url_for(theater_key, date)
+    html = web.fetch_plain(url)
+    text = _plain(html)
+    found = re.search(r"Showtimes on ([A-Z][a-z]+, [A-Z][a-z]+ \d{1,2}, \d{4})", text)
+    rows = []
+    if page_date_ok(html, date):
+        try:
+            rows = scrape(theater_key, date)
+        except Exception as e:
+            rows = [{"error": str(e)}]
+    return {
+        "url": url,
+        "bytes": len(html),
+        "blocked": web.looks_blocked(html),
+        "is_directory": "Theaters Found" in text,
+        "page_says": found.group(1) if found else None,
+        "date_ok": page_date_ok(html, date),
+        "rows_parsed": len(rows),
+        "sample": [f"{r.get('starts_at')} {r.get('format')} {r.get('title')}" for r in rows[:5]],
+        "text_head": text[:400],
+    }
 
 
 def scrape_weekend(theater_key: str, days: list[dt.date]) -> list[dict]:

@@ -117,6 +117,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="print, don't write")
     ap.add_argument("--inspect", metavar="THEATER", help="dump a page and exit")
     ap.add_argument("--find-amc", action="store_true", help="list AMC theatre ids near Chicago")
+    ap.add_argument("--probe", metavar="THEATER",
+                    help="diagnose one theater: what page came back, how many rows parsed")
     ap.add_argument("--llm", dest="llm", action="store_true", default=True)
     ap.add_argument("--no-llm", dest="llm", action="store_false",
                     help="use hand-written selectors instead of the API")
@@ -128,6 +130,23 @@ def main():
     if args.find_amc:
         for t in amc.find_theatres("Chicago"):
             print(f"  {t['id']:>6}  {t['name']}  —  {t['address']}")
+        return
+
+    if args.probe:
+        from sources import bigscreen as bs
+        for d in weekend_dates():
+            print(f"\n=== {args.probe}  {d:%a %b %d} ===")
+            try:
+                info = bs.probe(args.probe, d)
+                for k in ("url", "bytes", "blocked", "is_directory", "page_says",
+                          "date_ok", "rows_parsed"):
+                    print(f"  {k:<13} {info[k]}")
+                for line in info["sample"]:
+                    print(f"    {line}")
+                if not info["date_ok"]:
+                    print(f"  text_head     {info['text_head'][:200]}")
+            except Exception as e:
+                print(f"  EXCEPTION     {type(e).__name__}: {e}")
         return
 
     if args.inspect:
@@ -212,8 +231,19 @@ def main():
                 print(f"  {s}")
         return
 
-    if failures and not args.allow_partial:
-        raise SystemExit("failed:\n  " + "\n  ".join(failures))
+    if failures:
+        print("\n" + "=" * 60, file=sys.stderr)
+        print("THEATERS THAT FAILED:", file=sys.stderr)
+        for f in failures:
+            print(f"  {f}", file=sys.stderr)
+        print("=" * 60, file=sys.stderr)
+        if not args.allow_partial:
+            raise SystemExit(
+                "Stopping because --allow-partial was not set. "
+                "Re-run with --allow-partial to publish the theaters that did work."
+            )
+        print("Continuing with --allow-partial; the site will show a "
+              "'Partial' banner naming the misses.", file=sys.stderr)
 
     with open(args.out, "w") as fh:
         json.dump(payload, fh, indent=2)
