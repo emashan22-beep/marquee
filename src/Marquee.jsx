@@ -275,6 +275,7 @@ const CSS = `
 .mq-scores { display:flex; gap:14px; margin-top:11px; align-items:baseline; }
 .mq-score b { font-family:'Space Mono',monospace; font-size:16px; }
 .mq-score span { font-size:11px; color:var(--dim); margin-left:5px; }
+.sc-none { color:#5A5F85; }
 .sc-hi { color:var(--reel); } .sc-mid { color:var(--bulb); } .sc-lo { color:var(--exit); }
 .mq-cardtools { display:flex; gap:10px; margin-top:14px; align-items:center; flex-wrap:wrap; }
 .mq-star { font-size:12px; color:var(--dim); border:1px solid var(--rail); border-radius:6px; padding:6px 11px; }
@@ -630,8 +631,8 @@ export default function Marquee() {
     const cmp = {
       showtime: (a, b) => first[a.id] - first[b.id] || b.popularity - a.popularity,
       popularity: (a, b) => b.popularity - a.popularity,
-      critic: (a, b) => b.critic - a.critic,
-      audience: (a, b) => b.audience - a.audience,
+      critic: (a, b) => (b.critic || -1) - (a.critic || -1),
+      audience: (a, b) => (b.audience || -1) - (a.audience || -1),
       release: (a, b) => (a.opened < b.opened ? 1 : -1),
       runtime: (a, b) => a.runtime - b.runtime,
       distance: (a, b) => nearestDist(a, day) - nearestDist(b, day),
@@ -819,6 +820,14 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
           </div>
         </div>
       )}
+      {Array.isArray(slateData.partial) && slateData.partial.length > 0 && (
+        <div className="mq-fake">
+          <div className="mq-fakeIn">
+            <b>Partial</b> — this run covers {[...new Set(slateData.films.flatMap((f) => f.showings.map((s) => s.split("|")[0])))].length} of
+            5 theaters. Missing: {slateData.partial.map((p) => p.split(":")[0]).join(", ")}.
+          </div>
+        </div>
+      )}
       {staleHours !== null && staleHours > 30 && (
         <div className="mq-fake">
           <div className="mq-fakeIn">
@@ -1002,8 +1011,12 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
                   {f.note && <p className="mq-progNote">{f.note}</p>}
                   <p className="mq-blurb">{f.blurb}</p>
                   <div className="mq-scores">
-                    <div className="mq-score"><b className={scoreClass(f.critic)}>{f.critic}</b><span>critics</span></div>
-                    <div className="mq-score"><b className={scoreClass(f.audience)}>{f.audience}</b><span>audience</span></div>
+                    <div className="mq-score">
+                      <b className={f.critic ? scoreClass(f.critic) : "sc-none"}>{f.critic || "\u2014"}</b><span>critics</span>
+                    </div>
+                    <div className="mq-score">
+                      <b className={f.audience ? scoreClass(f.audience) : "sc-none"}>{f.audience || "\u2014"}</b><span>audience</span>
+                    </div>
                     <div className="mq-score mq-mono" style={{ fontSize: 12, color: "var(--dim)" }}>
                       {ts.length} {ts.length === 1 ? "theater" : "theaters"} · {count} showtimes · nearest {nearestDist(f, day)} mi
                     </div>

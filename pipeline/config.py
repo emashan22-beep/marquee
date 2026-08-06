@@ -17,6 +17,22 @@ AMC_THEATRE_IDS = {
     "newcity":   None,   # AMC New City 14
 }
 
+# BigScreen theater ids — one plain-HTML source covering all five.
+# See sources/bigscreen.py. This is the recommended default.
+BIGSCREEN_IDS = {
+    "musicbox": 940, "logan": 932, "siskel": 937,
+    "newcity": 42492, "rivereast": 8267,
+}
+
+# Better sources where they exist, used in preference to BigScreen:
+#   siskel -> its own Agile Ticketing calendar, which keeps series names
+#             ("Technicolor Weekend", "25 for 25") that BigScreen drops.
+SISKEL_CALENDAR = ("https://purchase.siskelfilmcenter.org/websales/pages/"
+                   "list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39")
+
+# NOTE: musicboxtheatre.com/robots.txt disallows /calendar. Don't scrape
+# it. BigScreen carries their listings and is fine to read.
+
 # Calendar pages for the independents.
 PAGES = {
     "musicbox": "https://musicboxtheatre.com/calendar",
