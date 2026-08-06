@@ -8,13 +8,15 @@ import slateData from "./slate.json";
 ------------------------------------------------------------------- */
 
 const THEATERS = [
-  { id: "logan", name: "Logan Theatre", short: "Logan", hood: "Logan Square", addr: "2646 N Milwaukee Ave", dist: 0.8 },
-  { id: "newcity", name: "AMC New City 14", short: "New City", hood: "Clybourn Corridor", addr: "1500 N Clybourn Ave", dist: 2.7 },
   { id: "musicbox", name: "Music Box Theatre", short: "Music Box", hood: "Lakeview", addr: "3733 N Southport Ave", dist: 3.1 },
   { id: "siskel", name: "Gene Siskel Film Center", short: "Siskel", hood: "The Loop", addr: "164 N State St", dist: 4.9 },
   { id: "rivereast", name: "AMC River East 21", short: "River East", hood: "Streeterville", addr: "322 E Illinois St", dist: 5.6 },
 ];
 const T = Object.fromEntries(THEATERS.map((t) => [t.id, t]));
+// Slider bounds follow the theater list — no dead space below the
+// nearest theater now that the list is shorter.
+const DIST_MIN = Math.floor(Math.min(...THEATERS.map((t) => t.dist)) * 2) / 2;
+const DIST_MAX = Math.ceil(Math.max(...THEATERS.map((t) => t.dist)) * 2) / 2;
 
 /* ---- which weekend are we showing? --------------------------------
    Mon–Thu  → the coming Fri/Sat/Sun.
@@ -550,7 +552,7 @@ export default function Marquee() {
   const [theaterSel, setTheaterSel] = useState([]);
   const [genreSel, setGenreSel] = useState([]);
   const [formatSel, setFormatSel] = useState([]);
-  const [maxDist, setMaxDist] = useState(6);
+  const [maxDist, setMaxDist] = useState(DIST_MAX);
   const [maxRuntime, setMaxRuntime] = useState(180);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("showtime");
@@ -823,8 +825,9 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
       {Array.isArray(slateData.partial) && slateData.partial.length > 0 && (
         <div className="mq-fake">
           <div className="mq-fakeIn">
-            <b>Partial</b> — this run covers {[...new Set(slateData.films.flatMap((f) => f.showings.map((s) => s.split("|")[0])))].length} of
-            5 theaters. Missing: {slateData.partial.map((p) => p.split(":")[0]).join(", ")}.
+            <b>Partial</b> — this run covers {[...new Set(slateData.films.flatMap((f) => f.showings.map((s) => s.split("|")[0])))].length} of{" "}
+            {THEATERS.length} theaters. Missing:{" "}
+            {slateData.partial.map((p) => T[p.split(":")[0]]?.short || p.split(":")[0]).join(", ")}.
           </div>
         </div>
       )}
@@ -843,7 +846,7 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 20, flexWrap: "wrap" }}>
             <div>
               <div className="mq-mark">Marquee</div>
-              <div className="mq-sub mq-mono">{`FIVE THEATERS · FRI ${fmtDate(WEEKEND[0])} – SUN ${fmtDate(WEEKEND[2])} · CHICAGO`.toUpperCase()}</div>
+              <div className="mq-sub mq-mono">{`${THEATERS.length} THEATERS · FRI ${fmtDate(WEEKEND[0])} – SUN ${fmtDate(WEEKEND[2])} · CHICAGO`.toUpperCase()}</div>
             </div>
             <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
               <div className="mq-days">
@@ -946,7 +949,7 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
           </div>
           <div>
             <div className="mq-flabel">Within <span className="mq-rangeval">{maxDist} mi</span> of home</div>
-            <input className="mq-range" type="range" min="0.5" max="6" step="0.1" value={maxDist} onChange={(e) => setMaxDist(+e.target.value)} />
+            <input className="mq-range" type="range" min={DIST_MIN} max={DIST_MAX} step="0.1" value={maxDist} onChange={(e) => setMaxDist(+e.target.value)} />
             <div className="mq-flabel" style={{ marginTop: 14 }}>
               Runtime under <span className="mq-rangeval">{maxRuntime >= 180 ? "any" : fmtRuntime(maxRuntime)}</span>
             </div>
@@ -1135,7 +1138,7 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
                 current releases, licensed for use alongside their
                 showtimes.
 
-   theaterId  → one of: logan, newcity, musicbox, siskel, rivereast
+   theaterId  → one of: musicbox, siskel, rivereast
    day        → fri | sat | sun
    HH:MM      → 24h; use 24:00+ for after-midnight shows
    format     → imax | dolby | 70mm | 35mm | 3d | 4k | standard

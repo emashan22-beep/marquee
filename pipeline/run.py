@@ -13,9 +13,27 @@ and a broken scraper fails loudly rather than showing you an empty Friday.
 import argparse, json, sys, datetime as dt, traceback
 
 from config import THEATERS, AMC_THEATRE_IDS, PAGES, NEEDS_BROWSER, EXPECTED_MIN
-from sources import web, amc, extract
+from sources import web, amc, extract, bigscreen
 from normalize import build_slate, norm_title
 import enrich as enrich_mod
+
+
+def existing_meta(path: str) -> dict:
+    """Metadata already present in the slate we're about to overwrite."""
+    from normalize import norm_title
+    try:
+        with open(path) as fh:
+            old = json.load(fh)
+    except Exception:
+        return {}
+    keep = ("title", "year", "runtime", "director", "cast", "genres",
+            "critic", "audience", "popularity", "opened", "blurb", "posterUrl")
+    out = {}
+    for f in old.get("films", []):
+        vals = {k: f[k] for k in keep if f.get(k) not in (None, "", [], 0)}
+        if vals:
+            out[norm_title(f["title"])] = vals
+    return out
 
 
 def weekend_dates(today=None):
@@ -74,13 +92,20 @@ def hand_parse(key, html):
     raise NotImplementedError(f"no hand-written parser for {key} yet; use --llm")
 
 
+def scrape_bigscreen(key, days):
+    """Default for every theater: one source, one parser, no keys."""
+    return bigscreen.scrape_weekend(key, days)
+
+
 SCRAPERS = {
-    "rivereast": lambda d, llm: scrape_amc("rivereast", d),
-    "newcity":   lambda d, llm: scrape_amc("newcity", d),
-    "siskel":    lambda d, llm: scrape_page("siskel", d, llm),
-    "logan":     lambda d, llm: scrape_page("logan", d, llm),
-    "musicbox":  lambda d, llm: scrape_page("musicbox", d, llm),
+    "rivereast": lambda d, llm: scrape_bigscreen("rivereast", d),
+    "siskel":    lambda d, llm: scrape_bigscreen("siskel", d),
+    "musicbox":  lambda d, llm: scrape_bigscreen("musicbox", d),
 }
+
+# Swap an entry for scrape_amc or scrape_page if you get a better source
+# for that theater — e.g. the AMC vendor API, or Siskel's own calendar,
+# which keeps series names that BigScreen drops.
 
 
 # ------------------------------------------------------------------ main
@@ -139,12 +164,27 @@ def main():
     if not rows:
         raise SystemExit("nothing scraped; leaving the existing slate alone")
 
+    # Start from whatever the existing slate already knows. Otherwise a
+    # keyless rerun would throw away directors, cast and years that are
+    # already correct.
     meta, unmatched = {}, []
+    meta.update(existing_meta(args.out))
+
     if not args.no_enrich:
         titles = sorted({(r["title"], r.get("year")) for r in rows})
-        meta, unmatched = enrich_mod.enrich(titles)
+        fresh, unmatched = enrich_mod.enrich(titles)
+        for k, v in fresh.items():
+            meta.setdefault(k, {}).update({a: b for a, b in v.items() if b not in (None, "", [], 0)})
         for u in unmatched:
             print(f"    unmatched — {u}", file=sys.stderr)
+
+    # BigScreen prints runtimes on the listing page; use them where TMDB
+    # gave us nothing, so the runtime filter still works without a key.
+    from normalize import norm_title
+    for r in rows:
+        k = norm_title(r["title"])
+        if r.get("runtime_hint") and not meta.get(k, {}).get("runtime"):
+            meta.setdefault(k, {}).update({"runtime": r["runtime_hint"], "title": r["title"]})
 
     films = build_slate(rows, days, meta)
     missing_art = [f["title"] for f in films if not f.get("posterUrl")]

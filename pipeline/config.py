@@ -3,8 +3,6 @@
 # Your five theaters. `dist` is miles from home — measure once, hardcode.
 # They aren't moving, and this saves you a maps API.
 THEATERS = {
-    "logan":     {"name": "Logan Theatre",           "short": "Logan",      "dist": 0.8},
-    "newcity":   {"name": "AMC New City 14",         "short": "New City",   "dist": 2.7},
     "musicbox":  {"name": "Music Box Theatre",       "short": "Music Box",  "dist": 3.1},
     "siskel":    {"name": "Gene Siskel Film Center", "short": "Siskel",     "dist": 4.9},
     "rivereast": {"name": "AMC River East 21",       "short": "River East", "dist": 5.6},
@@ -14,14 +12,12 @@ THEATERS = {
 # and searching Chicago. Leave as None until you have them.
 AMC_THEATRE_IDS = {
     "rivereast": None,   # AMC River East 21
-    "newcity":   None,   # AMC New City 14
 }
 
 # BigScreen theater ids — one plain-HTML source covering all five.
 # See sources/bigscreen.py. This is the recommended default.
 BIGSCREEN_IDS = {
-    "musicbox": 940, "logan": 932, "siskel": 937,
-    "newcity": 42492, "rivereast": 8267,
+    "musicbox": 940, "siskel": 937, "rivereast": 8267,
 }
 
 # Better sources where they exist, used in preference to BigScreen:
@@ -37,7 +33,6 @@ SISKEL_CALENDAR = ("https://purchase.siskelfilmcenter.org/websales/pages/"
 PAGES = {
     "musicbox": "https://musicboxtheatre.com/calendar",
     "siskel":   "https://www.siskelfilmcenter.org/",
-    "logan":    "https://www.thelogantheatre.com/",
 }
 
 # Sites that won't serve content without running JavaScript.
@@ -46,7 +41,7 @@ NEEDS_BROWSER = {"musicbox"}
 # A quiet weekend day at each theater. Below this, assume the scraper
 # broke rather than that nothing is playing.
 EXPECTED_MIN = {
-    "rivereast": 20, "newcity": 15, "siskel": 4, "logan": 5, "musicbox": 3,
+    "rivereast": 20, "siskel": 4, "musicbox": 3,
 }
 
 # Which formats we recognise. Anything else gets logged, not silently

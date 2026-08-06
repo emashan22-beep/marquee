@@ -91,11 +91,43 @@ def _year(row_text: str) -> int | None:
     return int(m.group(1)) if m else None
 
 
+_warmed: set[str] = set()
+
+WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+MONTHS = ["January", "February", "March", "April", "May", "June", "July",
+          "August", "September", "October", "November", "December"]
+
+
+def _warm_up(theater_key: str) -> None:
+    """Load the theater's base page once so the session cookie is set.
+
+    Without this, a dated request gets silently redirected to the
+    'theaters near you' directory and you parse zero showtimes — which
+    looks exactly like a theater that is closed.
+    """
+    if theater_key in _warmed:
+        return
+    web.fetch_plain(f"{BASE}?theater={THEATER_IDS[theater_key]}")
+    _warmed.add(theater_key)
+
+
+def _verify_page(html: str, theater_key: str, date: dt.date) -> None:
+    """Refuse to parse a page that isn't the one we asked for."""
+    want_date = f"{WEEKDAYS[date.weekday()]}, {MONTHS[date.month - 1]} {date.day}, {date.year}"
+    if f"Showtimes on {want_date}" not in html:
+        raise RuntimeError(
+            f"{theater_key}: page is not {want_date} — got redirected or served a cache. "
+            f"Nothing parsed."
+        )
+
+
 def scrape(theater_key: str, date: dt.date) -> list[dict]:
+    _warm_up(theater_key)
     url = url_for(theater_key, date)
     html = web.fetch_plain(url)
     if web.looks_blocked(html):
         raise RuntimeError(f"{theater_key}: blocked at {url}")
+    _verify_page(html, theater_key, date)
 
     soup = BeautifulSoup(html, "html.parser")
     rows = []

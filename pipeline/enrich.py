@@ -109,8 +109,19 @@ def omdb_scores(imdb_id: str) -> dict:
         return {}
 
 
+def have_key() -> bool:
+    return bool(os.environ.get("TMDB_KEY"))
+
+
 def enrich(titles: list[tuple[str, int | None]]) -> tuple[dict, list[str]]:
-    """titles: [(display_title, year_or_None)] -> {norm_title: metadata}"""
+    """titles: [(display_title, year_or_None)] -> {norm_title: metadata}
+
+    With no TMDB_KEY this is a no-op rather than an error, so the whole
+    pipeline still runs keyless — you just get showtimes without posters
+    or scores.
+    """
+    if not have_key():
+        return {}, ["TMDB_KEY not set - skipping posters, scores and cast"]
     meta, unmatched = {}, []
     for title, year in titles:
         key = norm_title(title)

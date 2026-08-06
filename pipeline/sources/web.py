@@ -8,15 +8,42 @@ UA = "marquee-personal/1.0 (personal weekend dashboard; contact: you@example.com
 HEADERS = {"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9"}
 
 
+_SESSION = None
+
+
+def session() -> requests.Session:
+    """One cookie jar for the whole run.
+
+    Some listing sites drop a ?theater= parameter entirely unless a
+    session cookie is already set, and silently redirect you to their
+    directory page instead. A shared Session fixes that.
+    """
+    global _SESSION
+    if _SESSION is None:
+        _SESSION = requests.Session()
+        _SESSION.headers.update(HEADERS)
+    return _SESSION
+
+
 def fetch_plain(url: str, timeout: int = 25) -> str:
-    r = requests.get(url, headers=HEADERS, timeout=timeout)
+    r = session().get(url, timeout=timeout)
     r.raise_for_status()
     return r.text
 
 
 def fetch_rendered(url: str, wait_selector: str | None = None, timeout: int = 30000) -> str:
-    """For sites behind a JavaScript check. Slower, still free."""
-    from playwright.sync_api import sync_playwright
+    """For sites behind a JavaScript check. Slower, still free.
+
+    Optional: only needed if you add a source that requires a browser.
+    pip install playwright && playwright install chromium
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        raise RuntimeError(
+            "this source needs a browser: pip install playwright "
+            "&& playwright install chromium"
+        )
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
