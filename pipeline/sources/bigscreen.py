@@ -87,7 +87,7 @@ def _runtime(row_text: str) -> int:
 
 
 def _year(row_text: str) -> int | None:
-    m = re.search(r"\b(19\d{2}|20[0-2]\d)\s*-\s*(?:R|PG|G|NR|Not Rated|PG-13)", row_text)
+    m = re.search(r"\b(19\d{2}|20[0-2]\d)\s*[-–]\s*", row_text)
     return int(m.group(1)) if m else None
 
 
@@ -139,6 +139,48 @@ def _verify_page(html: str, theater_key: str, date: dt.date) -> None:
     )
 
 
+TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s*[ap]?\.?m?\.?\b", re.I)
+JUNK_LINKS = {"movie poster", "poster", "photos", "videos", "reviews", "media",
+              "more", "showtimes", "read more"}
+
+
+def _title_from_anchor(a) -> str:
+    """The visible text, or the link's title attribute as a fallback.
+
+    The poster link in each row wraps an <img> and so has NO text at all —
+    get_text() returns "". Taking the first matching anchor therefore
+    yielded an empty title and silently skipped every row. Its title
+    attribute reads "View showtimes and information for <FILM>", which is
+    a perfectly good source.
+    """
+    txt = a.get_text(" ", strip=True)
+    if txt and txt.lower() not in JUNK_LINKS:
+        return txt
+    attr = a.get("title") or ""
+    m = re.search(r"(?:information|reviews)\s+for\s+(.+?)\s*$", attr)
+    if m:
+        return m.group(1).strip()
+    return ""
+
+
+def _row_title(tr) -> str:
+    best = ""
+    for a in tr.find_all("a", href=re.compile(r"NowShowing\.php\?movie=")):
+        t = _title_from_anchor(a)
+        if len(t) > len(best):
+            best = t
+    return best
+
+
+def _times_cell(cells) -> str:
+    """The cell holding the showtimes, found by shape rather than position."""
+    for c in reversed(cells):
+        t = c.get_text(" ", strip=True)
+        if TIME_RE.search(t):
+            return t
+    return ""
+
+
 def scrape(theater_key: str, date: dt.date) -> list[dict]:
     _warm_up(theater_key)
     url = url_for(theater_key, date)
@@ -152,35 +194,34 @@ def scrape(theater_key: str, date: dt.date) -> list[dict]:
 
     for tr in soup.select("tr"):
         cells = tr.find_all("td")
-        if len(cells) < 2:
-            continue
-        text = tr.get_text(" ", strip=True)
-
-        # The title is the anchor pointing at a NowShowing movie page.
-        link = tr.find("a", href=re.compile(r"NowShowing\.php\?movie="))
-        if not link:
-            continue
-        title = link.get_text(strip=True)
-        if not title or title.lower() == "movie poster":
+        if not cells:
             continue
 
-        # Showtimes live in the last cell, comma separated, followed by
-        # the format label.
-        times_cell = cells[-1].get_text(" ", strip=True)
-        fmt = _detect_format(times_cell)
-        stripped = re.split(r"(?i)(digital|70mm|35mm|imax|dolby|3d)\s*projection", times_cell)[0]
+        title = _row_title(tr)
+        if not title:
+            continue
 
-        for token in stripped.split(","):
+        times_text = _times_cell(cells)
+        if not times_text:
+            continue
+
+        row_text = tr.get_text(" ", strip=True)
+        fmt = _detect_format(times_text)
+        # everything before the "... Projection" label is the time list
+        stripped = re.split(r"(?i)(digital|70\s?mm|35\s?mm|imax|dolby|3-?d|real\s?d)[a-z ]*projection",
+                            times_text)[0]
+
+        for token in re.split(r"[,/]", stripped):
             t = _parse_time(token, date)
             if not t:
                 continue
             rows.append({
                 "theater": theater_key,
                 "title": title,
-                "year": _year(text),
+                "year": _year(row_text),
                 "starts_at": t.isoformat(timespec="minutes"),
                 "format": fmt,
-                "runtime_hint": _runtime(text),
+                "runtime_hint": _runtime(row_text),
                 "note": "",
                 "ticket_url": "",
                 "source_url": url,
@@ -214,6 +255,9 @@ def probe(theater_key: str, date: dt.date) -> dict:
         "page_says": found.group(1) if found else None,
         "date_ok": page_date_ok(html, date),
         "rows_parsed": len(rows),
+        "movie_links": len(BeautifulSoup(html, "html.parser")
+                          .find_all("a", href=re.compile(r"NowShowing\.php\?movie="))),
+        "table_rows": len(BeautifulSoup(html, "html.parser").select("tr")),
         "sample": [f"{r.get('starts_at')} {r.get('format')} {r.get('title')}" for r in rows[:5]],
         "text_head": text[:400],
     }
