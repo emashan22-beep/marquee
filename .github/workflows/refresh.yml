@@ -1,0 +1,72 @@
+name: Refresh listings
+
+# Run this from the Actions tab: pick "Refresh listings" on the left,
+# then the "Run workflow" button on the right. No local setup needed.
+#
+# It scrapes your theaters, writes src/slate.json, commits it, and the
+# deploy workflow picks it up automatically.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Print what it finds without committing"
+        type: boolean
+        default: false
+
+  # Uncomment once you trust it, for automatic weekend refreshes.
+  # schedule:
+  #   - cron: "0 22 * * 5"    # Fri 5pm Chicago
+  #   - cron: "0 13 * * 6,0"  # Sat & Sun 8am Chicago
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r pipeline/requirements.txt
+
+      - name: Scrape showtimes
+        working-directory: pipeline
+        env:
+          # Optional. Add under Settings > Secrets and variables > Actions
+          # for posters, scores and cast. Works fine without them.
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+          OMDB_KEY: ${{ secrets.OMDB_KEY }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python run.py --dry-run
+          else
+            python run.py --out ../src/slate.json
+          fi
+
+      - name: Show what changed
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          python -c "
+          import json
+          d = json.load(open('src/slate.json'))
+          shows = [s for f in d['films'] for s in f['showings']]
+          print(f\"{len(d['films'])} films, {len(shows)} showings\")
+          print('weekend:', d['weekend'])
+          print('missing:', d['partial'] or 'nothing')
+          "
+
+      - name: Commit listings
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git config user.name  "marquee-bot"
+          git config user.email "marquee-bot@users.noreply.github.com"
+          git add src/slate.json
+          git diff --staged --quiet && echo "no change" && exit 0
+          git commit -m "listings $(date -u +%F)"
+          git push
