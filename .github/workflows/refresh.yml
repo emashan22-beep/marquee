@@ -1,20 +1,27 @@
 name: Refresh listings
 
-# Run this from the Actions tab: pick "Refresh listings" on the left,
-# then the "Run workflow" button on the right. No local setup needed.
+# Actions tab -> "Refresh listings" -> "Run workflow".
 #
-# It scrapes your theaters, writes src/slate.json, commits it, and the
-# deploy workflow picks it up automatically.
+# Modes:
+#   refresh  - scrape and commit (default)
+#   dry-run  - scrape and print, commit nothing
+#   probe    - diagnose one theater when a refresh fails
 
 on:
   workflow_dispatch:
     inputs:
-      dry_run:
-        description: "Print what it finds without committing"
-        type: boolean
-        default: false
+      mode:
+        description: "What to do"
+        type: choice
+        default: refresh
+        options: [refresh, dry-run, probe]
+      theater:
+        description: "Theater to probe (probe mode only)"
+        type: choice
+        default: rivereast
+        options: [rivereast, musicbox, siskel]
 
-  # Uncomment once you trust it, for automatic weekend refreshes.
+  # Uncomment for automatic weekend refreshes, once you trust it.
   # schedule:
   #   - cron: "0 22 * * 5"    # Fri 5pm Chicago
   #   - cron: "0 13 * * 6,0"  # Sat & Sun 8am Chicago
@@ -35,34 +42,45 @@ jobs:
 
       - run: pip install -r pipeline/requirements.txt
 
-      - name: Scrape showtimes
+      - name: Probe
+        if: ${{ inputs.mode == 'probe' }}
+        working-directory: pipeline
+        run: python run.py --probe "${{ inputs.theater }}"
+
+      - name: Dry run
+        if: ${{ inputs.mode == 'dry-run' }}
         working-directory: pipeline
         env:
-          # Optional. Add under Settings > Secrets and variables > Actions
-          # for posters, scores and cast. Works fine without them.
           TMDB_KEY: ${{ secrets.TMDB_KEY }}
           OMDB_KEY: ${{ secrets.OMDB_KEY }}
-        run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            python run.py --dry-run
-          else
-            python run.py --out ../src/slate.json
-          fi
+        run: python run.py --dry-run
+
+      # --allow-partial: a theater that fails is skipped and named in the
+      # site's "Partial" banner, rather than throwing away the ones that
+      # worked. Failed theaters contribute no rows, so nothing bad ships.
+      - name: Scrape showtimes
+        if: ${{ inputs.mode == 'refresh' }}
+        working-directory: pipeline
+        env:
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+          OMDB_KEY: ${{ secrets.OMDB_KEY }}
+        run: python run.py --out ../src/slate.json --allow-partial
 
       - name: Show what changed
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ inputs.mode == 'refresh' }}
         run: |
           python -c "
           import json
           d = json.load(open('src/slate.json'))
           shows = [s for f in d['films'] for s in f['showings']]
+          seen = sorted({s.split('|')[0] for s in shows})
           print(f\"{len(d['films'])} films, {len(shows)} showings\")
-          print('weekend:', d['weekend'])
+          print('theaters included:', ', '.join(seen))
           print('missing:', d['partial'] or 'nothing')
           "
 
       - name: Commit listings
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ inputs.mode == 'refresh' }}
         run: |
           git config user.name  "marquee-bot"
           git config user.email "marquee-bot@users.noreply.github.com"
