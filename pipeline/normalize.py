@@ -83,7 +83,9 @@ def build_slate(rows: list[dict], weekend: list[dt.date], meta: dict | None = No
             "blurb": m.get("blurb") or "",
             "posterUrl": m.get("posterUrl"),
             "repertory": bool(year and year < dt.date.today().year - 2),
-            "notes": [],
+            # seed from any note carried over from the previous slate, so a
+            # rerun doesn't lose a theater's own series framing
+            "notes": [n for n in [m.get("note")] if n],
             "showings": [],
             "sources": [],
         })

@@ -27,7 +27,8 @@ def existing_meta(path: str) -> dict:
     except Exception:
         return {}
     keep = ("title", "year", "runtime", "director", "cast", "genres",
-            "critic", "audience", "popularity", "opened", "blurb", "posterUrl")
+            "critic", "audience", "popularity", "opened", "blurb", "posterUrl",
+            "note")
     out = {}
     for f in old.get("films", []):
         vals = {k: f[k] for k in keep if f.get(k) not in (None, "", [], 0)}
@@ -190,7 +191,8 @@ def main():
     meta.update(existing_meta(args.out))
 
     if not args.no_enrich:
-        titles = sorted({(r["title"], r.get("year")) for r in rows})
+        titles = sorted({(r["title"], r.get("year")) for r in rows},
+                        key=lambda t: (t[0].lower(), t[1] or 0))
         fresh, unmatched = enrich_mod.enrich(titles)
         for k, v in fresh.items():
             meta.setdefault(k, {}).update({a: b for a, b in v.items() if b not in (None, "", [], 0)})
