@@ -1,15 +1,698 @@
 {
-  "fetchedAt": "2026-08-05T12:00+00:00",
+  "fetchedAt": "2026-08-07T05:53+00:00",
   "source": "live",
   "weekend": [
     "2026-08-07",
     "2026-08-08",
     "2026-08-09"
   ],
-  "partial": [
-    "rivereast: not yet scraped"
+  "partial": [],
+  "unmatched": [
+    "Horror of Dracula (1958)",
+    "Minions & Monsters in 3D (?)",
+    "Only Yesterday - 35th Anniversary - Studio Ghibli Fest 2026 (?)",
+    "Singin' in the Rain - 65th Anniversary presented by TCM (2017)",
+    "Spider-Man: Brand New Day in 3D (?)",
+    "Stadium Seating (?)"
   ],
   "films": [
+    {
+      "id": "spider-man-brand-new-day-2026",
+      "title": "Spider-Man: Brand New Day",
+      "year": 2026,
+      "runtime": 145,
+      "director": "Destin Daniel Cretton",
+      "cast": [
+        "Tom Holland",
+        "Sadie Sink",
+        "Tramell Tillman",
+        "Zendaya"
+      ],
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Adventure"
+      ],
+      "critic": 79,
+      "audience": 79,
+      "popularity": 1657,
+      "opened": "2026-07-29",
+      "blurb": "Fighting crime full-time as Spider-Man in a world that doesn't remember him\u2014and the pressure of seeing his old friends move on without him\u2014sparks a change in Peter Parker he may not have the power to control. But that tr",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|09:45|standard",
+        "rivereast|fri|10:45|standard",
+        "rivereast|fri|12:30|standard",
+        "rivereast|fri|12:50|dolby",
+        "rivereast|fri|13:15|standard",
+        "rivereast|fri|15:45|standard",
+        "rivereast|fri|16:00|standard",
+        "rivereast|fri|16:20|dolby",
+        "rivereast|fri|16:45|standard",
+        "rivereast|fri|18:00|standard",
+        "rivereast|fri|19:20|standard",
+        "rivereast|fri|19:50|dolby",
+        "rivereast|fri|20:10|standard",
+        "rivereast|fri|20:45|standard",
+        "rivereast|fri|21:00|standard",
+        "rivereast|fri|21:30|standard",
+        "rivereast|fri|22:40|standard",
+        "rivereast|fri|23:10|dolby",
+        "rivereast|fri|23:30|standard",
+        "rivereast|fri|24:30|standard",
+        "rivereast|fri|25:15|standard",
+        "rivereast|fri|25:30|standard",
+        "rivereast|sat|10:45|standard",
+        "rivereast|sat|11:15|standard",
+        "rivereast|sat|12:30|standard",
+        "rivereast|sat|12:50|dolby",
+        "rivereast|sat|14:20|standard",
+        "rivereast|sat|14:45|standard",
+        "rivereast|sat|15:30|standard",
+        "rivereast|sat|16:00|standard",
+        "rivereast|sat|16:20|dolby",
+        "rivereast|sat|18:00|standard",
+        "rivereast|sat|18:15|standard",
+        "rivereast|sat|19:15|standard",
+        "rivereast|sat|19:30|standard",
+        "rivereast|sat|19:50|dolby",
+        "rivereast|sat|20:45|standard",
+        "rivereast|sat|21:00|standard",
+        "rivereast|sat|21:20|standard",
+        "rivereast|sat|21:40|standard",
+        "rivereast|sat|22:50|standard",
+        "rivereast|sat|23:10|dolby",
+        "rivereast|sun|10:50|standard",
+        "rivereast|sun|12:15|standard",
+        "rivereast|sun|12:30|standard",
+        "rivereast|sun|12:50|dolby",
+        "rivereast|sun|14:20|standard",
+        "rivereast|sun|15:20|standard",
+        "rivereast|sun|16:00|standard",
+        "rivereast|sun|16:20|dolby",
+        "rivereast|sun|17:30|standard",
+        "rivereast|sun|18:00|standard",
+        "rivereast|sun|19:30|standard",
+        "rivereast|sun|19:50|dolby",
+        "rivereast|sun|20:50|standard",
+        "rivereast|sun|21:20|standard",
+        "rivereast|sun|22:45|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "the-odyssey-2026",
+      "title": "The Odyssey",
+      "year": 2026,
+      "runtime": 173,
+      "director": "Christopher Nolan",
+      "cast": [
+        "Matt Damon",
+        "Tom Holland",
+        "Anne Hathaway",
+        "Robert Pattinson"
+      ],
+      "genres": [
+        "Adventure",
+        "Action",
+        "Fantasy"
+      ],
+      "critic": 80,
+      "audience": 80,
+      "popularity": 902,
+      "opened": "2026-07-15",
+      "blurb": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stre",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
+      "repertory": false,
+      "showings": [
+        "musicbox|fri|12:15|70mm",
+        "musicbox|fri|16:15|70mm",
+        "musicbox|fri|20:15|70mm",
+        "musicbox|sat|14:00|70mm",
+        "musicbox|sat|18:00|70mm",
+        "musicbox|sat|22:00|70mm",
+        "musicbox|sun|14:00|70mm",
+        "musicbox|sun|18:00|70mm",
+        "rivereast|fri|11:20|standard",
+        "rivereast|fri|12:30|70mm",
+        "rivereast|fri|13:20|standard",
+        "rivereast|fri|14:10|standard",
+        "rivereast|fri|15:10|standard",
+        "rivereast|fri|17:10|standard",
+        "rivereast|fri|18:10|standard",
+        "rivereast|fri|19:00|standard",
+        "rivereast|fri|20:30|70mm",
+        "rivereast|fri|22:10|standard",
+        "rivereast|fri|23:00|standard",
+        "rivereast|fri|24:20|70mm",
+        "rivereast|sat|10:10|standard",
+        "rivereast|sat|11:40|standard",
+        "rivereast|sat|13:20|standard",
+        "rivereast|sat|15:40|standard",
+        "rivereast|sat|16:30|70mm",
+        "rivereast|sat|18:20|standard",
+        "rivereast|sat|19:10|standard",
+        "rivereast|sat|20:30|70mm",
+        "rivereast|sat|22:15|standard",
+        "rivereast|sat|23:00|standard",
+        "rivereast|sat|24:15|70mm",
+        "rivereast|sun|10:10|standard",
+        "rivereast|sun|13:30|standard",
+        "rivereast|sun|14:10|standard",
+        "rivereast|sun|16:30|70mm",
+        "rivereast|sun|17:20|standard",
+        "rivereast|sun|18:30|standard",
+        "rivereast|sun|19:10|standard",
+        "rivereast|sun|20:30|70mm",
+        "rivereast|sun|21:30|standard",
+        "rivereast|sun|22:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "70mm presentation",
+      "oneNight": false,
+      "soloTheater": false
+    },
+    {
+      "id": "toy-story-5-2026",
+      "title": "Toy Story 5",
+      "year": 2026,
+      "runtime": 102,
+      "director": "Andrew Stanton",
+      "cast": [
+        "Tom Hanks",
+        "Tim Allen",
+        "Joan Cusack",
+        "Greta Lee"
+      ],
+      "genres": [
+        "Animation",
+        "Family",
+        "Comedy",
+        "Adventure"
+      ],
+      "critic": 74,
+      "audience": 74,
+      "popularity": 311,
+      "opened": "2026-06-17",
+      "blurb": "When Bonnie receives a Lilypad tablet as a gift and becomes obsessed, Buzz, Woody, Jessie and the rest of the gang's jobs become exponentially harder when they have to go head to head with the all-new threat to playtime.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/sfQtVlIHljToOwYjhe21KPGzZWK.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|sat|17:15|standard",
+        "rivereast|sun|12:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "minions-monsters-2026",
+      "title": "Minions & Monsters",
+      "year": 2026,
+      "runtime": 90,
+      "director": "Pierre Coffin",
+      "cast": [
+        "Pierre Coffin",
+        "Trey Parker",
+        "Allison Janney",
+        "Christoph Waltz"
+      ],
+      "genres": [
+        "Adventure",
+        "Animation",
+        "Comedy",
+        "Family",
+        "Fantasy"
+      ],
+      "critic": 64,
+      "audience": 64,
+      "popularity": 267,
+      "opened": "2026-06-24",
+      "blurb": "This is the rambunctious, ridiculous and totally true story of how the Minions conquered Hollywood, became movie stars, lost everything, unleashed monsters onto the world and then banded together to try and save the plan",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/nz7i42yhLIJ4ve9JKgM6NthoLHO.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|11:40|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date"
+      ],
+      "note": "",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "mad-max-fury-road-2015",
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "runtime": 121,
+      "director": "George Miller",
+      "cast": [
+        "Tom Hardy",
+        "Charlize Theron",
+        "Nicholas Hoult",
+        "Hugh Keays-Byrne"
+      ],
+      "genres": [
+        "Action",
+        "Adventure",
+        "Science Fiction"
+      ],
+      "critic": 76,
+      "audience": 76,
+      "popularity": 39,
+      "opened": "2015-05-13",
+      "blurb": "An apocalyptic story set in the furthest reaches of our planet, in a stark desert landscape where humanity is broken, and most everyone is crazed fighting for the necessities of life. Within this world exist two rebels o",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/ulcAi4dKpAjHwYGS08vNyx9H6I9.jpg",
+      "repertory": true,
+      "showings": [
+        "siskel|sat|16:00|standard",
+        "siskel|sun|14:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "ice-cream-man-2026",
+      "title": "Ice Cream Man",
+      "year": 2026,
+      "runtime": 86,
+      "director": "Eli Roth",
+      "cast": [
+        "Ari Millen",
+        "Charlie Zeltzer",
+        "Shiloh O\u2019Reilly",
+        "Kiori Mirza Waldman"
+      ],
+      "genres": [
+        "Horror",
+        "Thriller",
+        "Comedy"
+      ],
+      "critic": 58,
+      "audience": 58,
+      "popularity": 37,
+      "opened": "2026-08-03",
+      "blurb": "An idyllic summer town descends into madness when an ice cream man serves kids sweet delights with horrifying results.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/c987gxFjXqYOxZEZKcTkS1ONTWH.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|12:15|standard",
+        "rivereast|fri|14:45|standard",
+        "rivereast|fri|17:30|standard",
+        "rivereast|fri|20:10|standard",
+        "rivereast|fri|22:15|standard",
+        "rivereast|fri|23:50|standard",
+        "rivereast|fri|24:00|standard",
+        "rivereast|sat|12:20|standard",
+        "rivereast|sat|14:50|standard",
+        "rivereast|sat|17:15|standard",
+        "rivereast|sat|20:15|standard",
+        "rivereast|sat|22:50|standard",
+        "rivereast|sun|12:20|standard",
+        "rivereast|sun|14:45|standard",
+        "rivereast|sun|20:10|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "the-godfather-part-ii-1974",
+      "title": "The Godfather Part II",
+      "year": 1974,
+      "runtime": 202,
+      "director": "Francis Ford Coppola",
+      "cast": [
+        "Al Pacino",
+        "Robert Duvall",
+        "Diane Keaton",
+        "Robert De Niro"
+      ],
+      "genres": [
+        "Drama",
+        "Crime"
+      ],
+      "critic": 86,
+      "audience": 86,
+      "popularity": 36,
+      "opened": "1974-12-20",
+      "blurb": "In the continuing saga of the Corleone crime family, a young Vito Corleone grows up in Sicily and in 1910s New York. In the 1950s, Michael Corleone attempts to expand the family business into Las Vegas, Hollywood and Cub",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/ecBRkXerAZqRRUfR8Lt3L3Dh6J5.jpg",
+      "repertory": true,
+      "showings": [
+        "siskel|sat|18:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date"
+      ],
+      "note": "Technicolor Weekend",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "the-invite-2026",
+      "title": "The Invite",
+      "year": 2026,
+      "runtime": 107,
+      "director": "Olivia Wilde",
+      "cast": [
+        "Seth Rogen",
+        "Olivia Wilde",
+        "Pen\u00e9lope Cruz",
+        "Edward Norton"
+      ],
+      "genres": [
+        "Drama",
+        "Comedy",
+        "Romance"
+      ],
+      "critic": 77,
+      "audience": 77,
+      "popularity": 27,
+      "opened": "2026-06-25",
+      "blurb": "Joe and Angela\u2019s marriage is on thin ice. When they invite their enigmatic upstairs neighbors for a dinner party, the night spirals into unexpected places. Have they reignited the spark or lit the match that burns it all",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/b7Dr8Chzse8VagexAporUu2RtLx.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|14:00|standard",
+        "rivereast|fri|17:30|standard",
+        "rivereast|sat|16:40|standard",
+        "rivereast|sun|17:50|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "i-want-your-sex-2026",
+      "title": "I Want Your Sex",
+      "year": 2026,
+      "runtime": 90,
+      "director": "Gregg Araki",
+      "cast": [
+        "Olivia Wilde",
+        "Cooper Hoffman",
+        "Mason Gooding",
+        "Chase Sui Wonders"
+      ],
+      "genres": [
+        "Comedy"
+      ],
+      "critic": 61,
+      "audience": 61,
+      "popularity": 19,
+      "opened": "2026-07-29",
+      "blurb": "When fresh-faced Elliot lands an exciting job for renowned artist, icon and provocateur Erika Tracy, his fantasies come true as Erika taps him to become her sexual muse. But Elliot soon finds himself out of his depth as ",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/pR7SIX3AwqdoD96OI44oLG98e7g.jpg",
+      "repertory": false,
+      "showings": [
+        "musicbox|fri|13:45|standard",
+        "musicbox|fri|16:45|standard",
+        "musicbox|fri|19:00|standard",
+        "musicbox|fri|21:30|standard",
+        "musicbox|sat|14:30|standard",
+        "musicbox|sat|16:45|standard",
+        "musicbox|sat|19:00|standard",
+        "musicbox|sat|21:45|standard",
+        "musicbox|sun|14:30|standard",
+        "musicbox|sun|16:45|standard",
+        "musicbox|sun|19:00|standard",
+        "musicbox|sun|21:45|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "dc-2026",
+      "title": "DC",
+      "year": 2026,
+      "runtime": 141,
+      "director": "Arun Matheswaran",
+      "cast": [
+        "Lokesh Kanagaraj",
+        "Wamiqa Gabbi",
+        "Sanjana Krishnamoorthy",
+        "Sharath Ravi"
+      ],
+      "genres": [
+        "Romance",
+        "Action",
+        "Drama"
+      ],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 12,
+      "opened": "2026-08-07",
+      "blurb": "Rebel Devadas joins forces with Chandra in a dangerous world where passion and peril collide. Their turbulent alliance demands bloodshed and tests loyalties as survival becomes the ultimate stake in their fight.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/7IqDtlkUNDnnR3wsXScEGSDV4RM.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|sun|15:15|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "super-troopers-3-2026",
+      "title": "Super Troopers 3",
+      "year": 2026,
+      "runtime": 100,
+      "director": "Jay Chandrasekhar",
+      "cast": [
+        "Jay Chandrasekhar",
+        "Kevin Heffernan",
+        "Steve Lemme",
+        "Paul Soter"
+      ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Mystery"
+      ],
+      "critic": 60,
+      "audience": 60,
+      "popularity": 9,
+      "opened": "2026-08-06",
+      "blurb": "When Farva's over-the-top Indian engagement to Thorny's sister spirals into chaos, the Super Troopers must navigate Thorny's schemes to break up the relationship, all while trying to bring down a pernicious new drug ring",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/VVU42nqsEmUtFpH1d9MHj5BIpF.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|11:10|standard",
+        "rivereast|fri|16:40|standard",
+        "rivereast|fri|20:00|standard",
+        "rivereast|fri|22:40|standard",
+        "rivereast|fri|24:30|standard",
+        "rivereast|sat|16:25|standard",
+        "rivereast|sat|20:00|standard",
+        "rivereast|sat|22:45|standard",
+        "rivereast|sun|13:15|standard",
+        "rivereast|sun|17:15|standard",
+        "rivereast|sun|20:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "hadestown-the-musical-2026",
+      "title": "Hadestown: The Musical",
+      "year": 2026,
+      "runtime": 141,
+      "director": "Brett Sullivan",
+      "cast": [
+        "Reeve Carney",
+        "Eva Noblezada",
+        "Andr\u00e9 De Shields",
+        "Patrick Page"
+      ],
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Romance"
+      ],
+      "critic": 89,
+      "audience": 89,
+      "popularity": 6,
+      "opened": "2026-07-23",
+      "blurb": "The tragic love of Orpheus and Eurydice is intertwined with the complex relationship of Hades and Persephone. Eurydice, struggling with poverty, is lured to the industrial underworld of Hadestown by Hades, while Orpheus,",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/iJNVygzkuOSCOdCPNI1nLSeF7sz.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|20:20|standard",
+        "rivereast|sat|17:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "jason-and-the-argonauts-1963",
+      "title": "Jason and the Argonauts",
+      "year": 1963,
+      "runtime": 104,
+      "director": "Don Chaffey",
+      "cast": [
+        "Todd Armstrong",
+        "Nancy Kovack",
+        "Gary Raymond",
+        "Laurence Naismith"
+      ],
+      "genres": [
+        "Adventure",
+        "Family",
+        "Fantasy"
+      ],
+      "critic": 72,
+      "audience": 72,
+      "popularity": 6,
+      "opened": "1963-06-13",
+      "blurb": "Jason, a fearless sailor and explorer, returns to his home land of Thessaly after a long voyage to claim his rightful throne. He learns, however, that he must first find the magical Golden Fleece. To do so, he must embar",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/xHVxIgqD5CxlOI5GHxvVSt5Zh5Y.jpg",
+      "repertory": true,
+      "showings": [
+        "musicbox|sat|11:00|standard",
+        "musicbox|sun|11:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "matinee",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "contempt-1963",
+      "title": "Contempt",
+      "year": 1963,
+      "runtime": 103,
+      "director": "Jean-Luc Godard",
+      "cast": [
+        "Brigitte Bardot",
+        "Michel Piccoli",
+        "Jack Palance",
+        "Giorgia Moll"
+      ],
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "critic": 70,
+      "audience": 70,
+      "popularity": 5,
+      "opened": "1963-10-29",
+      "blurb": "Art film producer Jeremy Prokosch, unhappy with the work of his director, hires Fritz Lang (as himself) to direct an adaptation of The Odyssey, but when it seems that the legendary filmmaker is making a picture destined ",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/kNElbRcp4Qz6wmJ9kH5vdY004Hq.jpg",
+      "repertory": true,
+      "showings": [
+        "musicbox|sat|11:30|standard",
+        "musicbox|sun|11:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "matinee",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "the-samurai-and-the-prisoner-2026",
+      "title": "The Samurai and the Prisoner",
+      "year": 2026,
+      "runtime": 147,
+      "director": "Kiyoshi Kurosawa",
+      "cast": [
+        "Masahiro Motoki",
+        "Masaki Suda",
+        "Yuriko Yoshitaka",
+        "Munetaka Aoki"
+      ],
+      "genres": [
+        "Drama",
+        "History",
+        "Mystery"
+      ],
+      "critic": 84,
+      "audience": 84,
+      "popularity": 5,
+      "opened": "2026-06-19",
+      "blurb": "When Lord Murashige rises up against the tyrannical Oda, he finds himself besieged within the walls of his own castle. Isolated, he is confronted with a series of mysterious crimes that shatter the fragile order of his c",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/1GWVlPM1v6k84LsmDkfDzLlGf0O.jpg",
+      "repertory": false,
+      "showings": [
+        "siskel|fri|20:30|standard",
+        "siskel|fri|20:45|standard",
+        "siskel|sat|10:45|standard",
+        "siskel|sat|13:00|standard",
+        "siskel|sat|18:45|standard",
+        "siskel|sun|11:30|standard",
+        "siskel|sun|16:00|standard",
+        "siskel|sun|17:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
     {
       "id": "baseketball-1998",
       "title": "BASEketball",
@@ -18,132 +701,96 @@
       "director": "David Zucker",
       "cast": [
         "Trey Parker",
-        "Matt Stone"
+        "Matt Stone",
+        "Dian Bachar",
+        "Yasmine Bleeth"
       ],
       "genres": [
         "Comedy"
       ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
+      "critic": 61,
+      "audience": 61,
+      "popularity": 4,
+      "opened": "1998-07-28",
+      "blurb": "Two losers from Milwaukee, Coop and Remer, invent a new game combining basketball with the rules of baseball. When the game becomes a huge success, they, along with a billionaire's help, form the Professional Baseketball",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/oKZdAUV9XSLp091f0GmtQEu0UZy.jpg",
       "repertory": true,
       "showings": [
         "musicbox|sat|23:59|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date"
       ],
       "note": "midnight",
       "oneNight": true,
       "soloTheater": true
     },
     {
-      "id": "contempt-1964",
-      "title": "Contempt",
-      "year": 1964,
-      "runtime": 103,
-      "director": "Jean-Luc Godard",
-      "cast": [
-        "Brigitte Bardot",
-        "Michel Piccoli",
-        "Jack Palance"
-      ],
-      "genres": [
-        "Drama",
-        "Foreign"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "musicbox|sat|11:30|standard",
-        "musicbox|sun|11:30|standard"
-      ],
-      "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
-      ],
-      "note": "matinee",
-      "oneNight": false,
-      "soloTheater": true
-    },
-    {
-      "id": "cookie-queens",
+      "id": "cookie-queens-2026",
       "title": "Cookie Queens",
-      "year": null,
+      "year": 2026,
       "runtime": 91,
-      "director": "",
-      "cast": [],
+      "director": "Alysa Nahmias",
+      "cast": [
+        "Ara",
+        "Shannon Elizabeth",
+        "Nikki",
+        "Olive"
+      ],
       "genres": [
         "Documentary"
       ],
       "critic": 0,
       "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
+      "popularity": 3,
+      "opened": "2026-08-07",
+      "blurb": "A celebration of girlhood and the complexities that come with it, Cookie Queens is a coming-of-age story about the joys, pressures, and tensions woven into one of America\u2019s most cherished rituals: Girl Scout Cookie seaso",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/lrb4Toi6BJHWwOz9clh1aJGJDj8.jpg",
       "repertory": false,
       "showings": [
+        "musicbox|fri|12:15|70mm",
         "musicbox|fri|14:00|standard",
+        "musicbox|fri|16:15|70mm",
         "musicbox|fri|16:30|standard",
         "musicbox|fri|18:45|standard",
+        "musicbox|fri|20:15|70mm",
         "musicbox|fri|21:15|standard",
+        "musicbox|sat|11:00|standard",
         "musicbox|sat|11:15|standard",
         "musicbox|sat|14:15|standard",
         "musicbox|sat|16:30|standard",
         "musicbox|sat|18:45|standard",
         "musicbox|sat|21:30|standard",
+        "musicbox|sun|11:00|standard",
         "musicbox|sun|11:15|standard",
         "musicbox|sun|14:15|standard",
         "musicbox|sun|16:30|standard",
         "musicbox|sun|18:45|standard",
-        "musicbox|sun|21:30|standard"
+        "musicbox|sun|21:30|standard",
+        "rivereast|fri|12:10|standard",
+        "rivereast|fri|14:40|standard",
+        "rivereast|fri|17:15|standard",
+        "rivereast|fri|19:45|standard",
+        "rivereast|sat|10:15|standard",
+        "rivereast|sat|15:15|standard",
+        "rivereast|sat|17:45|standard",
+        "rivereast|sat|19:50|standard",
+        "rivereast|sun|12:40|standard",
+        "rivereast|sun|15:10|standard",
+        "rivereast|sun|17:40|standard",
+        "rivereast|sun|19:40|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
       "oneNight": false,
-      "soloTheater": true
-    },
-    {
-      "id": "drylongso-1998",
-      "title": "Drylongso",
-      "year": 1998,
-      "runtime": 86,
-      "director": "Cauleen Smith",
-      "cast": [
-        "Toby Smith",
-        "April Barnett"
-      ],
-      "genres": [
-        "Drama",
-        "Independent"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sat|14:00|standard",
-        "siskel|sun|11:00|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "25 for 25",
-      "oneNight": false,
-      "soloTheater": true
+      "soloTheater": false
     },
     {
       "id": "hatari-1962",
@@ -153,24 +800,195 @@
       "director": "Howard Hawks",
       "cast": [
         "John Wayne",
-        "Elsa Martinelli"
+        "Hardy Kr\u00fcger",
+        "Elsa Martinelli",
+        "Red Buttons"
       ],
       "genres": [
         "Adventure",
-        "Comedy"
+        "Comedy",
+        "Action"
       ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
+      "critic": 68,
+      "audience": 68,
+      "popularity": 3,
+      "opened": "1962-06-19",
+      "blurb": "A female wildlife photographer arrives on an East African reservation where a group of men trap wild animals for zoos and circuses.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/fT1Ht8PSM5cFKmejrnufWvpXAPk.jpg",
       "repertory": true,
       "showings": [
         "siskel|sun|16:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "Technicolor Weekend",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "that-darn-cat-1965",
+      "title": "That Darn Cat!",
+      "year": 1965,
+      "runtime": 116,
+      "director": "Robert Stevenson",
+      "cast": [
+        "Hayley Mills",
+        "Dean Jones",
+        "Dorothy Provine",
+        "Roddy McDowall"
+      ],
+      "genres": [
+        "Family",
+        "Crime",
+        "Comedy"
+      ],
+      "critic": 66,
+      "audience": 66,
+      "popularity": 3,
+      "opened": "1965-12-02",
+      "blurb": "A young woman suspects foul play when her cat comes home wearing a wristwatch. Convincing the FBI, though, and catching the bad guys is tougher than she imagined.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/by92HEWg2d4WrkgbUIPEA0ufsHI.jpg",
+      "repertory": true,
+      "showings": [
+        "siskel|sun|13:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "Technicolor Weekend",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "drylongso-1999",
+      "title": "Drylongso",
+      "year": 1999,
+      "runtime": 81,
+      "director": "Cauleen Smith",
+      "cast": [
+        "Toby Smith",
+        "April Barnett",
+        "Will Power",
+        "Salim Akil"
+      ],
+      "genres": [
+        "Drama"
+      ],
+      "critic": 61,
+      "audience": 61,
+      "popularity": 2,
+      "opened": "1999-03-29",
+      "blurb": "A young woman in a photography class begins taking pictures of black men out of fear they will soon be extinct.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/jU4owOePxmgOZH4z3XCaso8FDWZ.jpg",
+      "repertory": true,
+      "showings": [
+        "siskel|sat|14:00|standard",
+        "siskel|sun|11:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "25 for 25",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "splash-city-2026",
+      "title": "Splash City",
+      "year": 2026,
+      "runtime": 100,
+      "director": "Alex Ferrufino",
+      "cast": [
+        "T.J. Atoms",
+        "Reed Shannon",
+        "Christopher Ammanuel",
+        "Zach Sowers"
+      ],
+      "genres": [
+        "Crime",
+        "Thriller"
+      ],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 2,
+      "opened": "2026-07-20",
+      "blurb": "Two brothers on diverging paths struggle to survive amidst the pressures of their community.",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/pOdwaXV1w3vvTn1s7FTvqBQIDp.jpg",
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|13:00|standard",
+        "rivereast|fri|15:40|standard",
+        "rivereast|sat|17:20|standard",
+        "rivereast|sun|14:00|standard",
+        "rivereast|sun|16:40|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "the-wild-inside",
+      "title": "The Wild Inside",
+      "year": null,
+      "runtime": 90,
+      "director": "Patrick Imbert",
+      "cast": [],
+      "genres": [
+        "Animation",
+        "Drama",
+        "Thriller"
+      ],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 2,
+      "opened": "",
+      "blurb": "In the Alaskan wilderness, Tracy Petrikoff, a lonely and fierce 17-year-old girl, lives with her father Bill and brother Scott in a deteriorating house away from the city. Since her mother, famous musher Hannah, vanished",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/5BXH6JNQAZd8pnf9mdsLEM0nb28.jpg",
+      "repertory": false,
+      "showings": [
+        "siskel|sat|11:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date"
+      ],
+      "note": "",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "meet-me-at-the-fair-1953",
+      "title": "Meet Me at the Fair",
+      "year": 1953,
+      "runtime": 87,
+      "director": "Douglas Sirk",
+      "cast": [
+        "Dan Dailey",
+        "Diana Lynn",
+        "Scatman Crothers",
+        "Chet Allen"
+      ],
+      "genres": [
+        "Music"
+      ],
+      "critic": 85,
+      "audience": 85,
+      "popularity": 1,
+      "opened": "1953-01-01",
+      "blurb": "In 1904, Doc Tilbee, medicine show huckster and champion tall-tale teller, gives a ride to a young boy escaped from an orphanage, where bad conditions (the result of political graft) are being investigated by new appoint",
+      "posterUrl": "https://image.tmdb.org/t/p/w342/oNFXhJsZqlKh668I9iulXnd9rub.jpg",
+      "repertory": true,
+      "showings": [
+        "siskel|sat|13:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
@@ -200,22 +1018,20 @@
         "siskel|fri|20:30|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-07&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
       "soloTheater": true
     },
     {
-      "id": "i-want-your-sex",
-      "title": "I Want Your Sex",
+      "id": "minions-monsters-in-3d",
+      "title": "Minions & Monsters in 3D",
       "year": null,
-      "runtime": 101,
+      "runtime": 90,
       "director": "",
       "cast": [],
-      "genres": [
-        "Drama"
-      ],
+      "genres": [],
       "critic": 0,
       "audience": 0,
       "popularity": 0,
@@ -224,139 +1040,48 @@
       "posterUrl": null,
       "repertory": false,
       "showings": [
-        "musicbox|fri|13:45|standard",
-        "musicbox|fri|16:45|standard",
-        "musicbox|fri|19:00|standard",
-        "musicbox|fri|21:30|standard",
-        "musicbox|sat|14:30|standard",
-        "musicbox|sat|16:45|standard",
-        "musicbox|sat|19:00|standard",
-        "musicbox|sat|21:45|standard",
-        "musicbox|sun|14:30|standard",
-        "musicbox|sun|16:45|standard",
-        "musicbox|sun|19:00|standard",
-        "musicbox|sun|21:45|standard"
+        "rivereast|sun|15:30|3d"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
-      "oneNight": false,
-      "soloTheater": true
-    },
-    {
-      "id": "jason-and-the-argonauts-1963",
-      "title": "Jason and the Argonauts",
-      "year": 1963,
-      "runtime": 104,
-      "director": "Don Chaffey",
-      "cast": [
-        "Todd Armstrong",
-        "Nancy Kovack"
-      ],
-      "genres": [
-        "Adventure",
-        "Fantasy",
-        "Family"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "musicbox|sat|11:00|standard",
-        "musicbox|sun|11:00|standard"
-      ],
-      "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
-      ],
-      "note": "matinee",
-      "oneNight": false,
-      "soloTheater": true
-    },
-    {
-      "id": "mad-max-fury-road-2015",
-      "title": "Mad Max: Fury Road",
-      "year": 2015,
-      "runtime": 120,
-      "director": "George Miller",
-      "cast": [
-        "Tom Hardy",
-        "Charlize Theron",
-        "Nicholas Hoult"
-      ],
-      "genres": [
-        "Action",
-        "Sci-Fi"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sat|16:00|standard",
-        "siskel|sun|14:30|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "",
-      "oneNight": false,
-      "soloTheater": true
-    },
-    {
-      "id": "meet-me-at-the-fair-1953",
-      "title": "Meet Me at the Fair",
-      "year": 1953,
-      "runtime": 87,
-      "director": "Douglas Sirk",
-      "cast": [
-        "Dan Dailey",
-        "Diana Lynn"
-      ],
-      "genres": [
-        "Musical",
-        "Family"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sat|13:00|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "Technicolor Weekend",
       "oneNight": true,
       "soloTheater": true
     },
     {
-      "id": "singin-in-the-rain-1952",
-      "title": "Singin' in the Rain",
-      "year": 1952,
+      "id": "only-yesterday-35th-anniversary-studio-ghibli-fe",
+      "title": "Only Yesterday - 35th Anniversary - Studio Ghibli Fest 2026",
+      "year": null,
+      "runtime": 126,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|sun|12:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "One Night Only",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "singin-in-the-rain-65th-anniversary-presented-by-2017",
+      "title": "Singin' in the Rain - 65th Anniversary presented by TCM",
+      "year": 2017,
       "runtime": 103,
-      "director": "Stanley Donen & Gene Kelly",
-      "cast": [
-        "Gene Kelly",
-        "Debbie Reynolds",
-        "Donald O'Connor"
-      ],
-      "genres": [
-        "Musical",
-        "Comedy",
-        "Family"
-      ],
+      "director": "",
+      "cast": [],
+      "genres": [],
       "critic": 0,
       "audience": 0,
       "popularity": 0,
@@ -368,115 +1093,20 @@
         "siskel|fri|18:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-07&sort=date"
       ],
-      "note": "Technicolor Weekend",
+      "note": "presented by",
       "oneNight": true,
       "soloTheater": true
     },
     {
-      "id": "that-darn-cat-1965",
-      "title": "That Darn Cat!",
-      "year": 1965,
-      "runtime": 116,
-      "director": "Robert Stevenson",
-      "cast": [
-        "Hayley Mills",
-        "Dean Jones"
-      ],
-      "genres": [
-        "Comedy",
-        "Family"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sun|13:00|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "Technicolor Weekend",
-      "oneNight": true,
-      "soloTheater": true
-    },
-    {
-      "id": "the-busy-body-1967",
-      "title": "The Busy Body",
-      "year": 1967,
-      "runtime": 90,
-      "director": "William Castle",
-      "cast": [
-        "Sid Caesar",
-        "Robert Ryan"
-      ],
-      "genres": [
-        "Comedy"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sat|15:30|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "Technicolor Weekend",
-      "oneNight": true,
-      "soloTheater": true
-    },
-    {
-      "id": "the-godfather-part-ii-1974",
-      "title": "The Godfather Part II",
-      "year": 1974,
-      "runtime": 202,
-      "director": "Francis Ford Coppola",
-      "cast": [
-        "Al Pacino",
-        "Robert De Niro",
-        "Robert Duvall"
-      ],
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sat|18:30|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "Technicolor Weekend",
-      "oneNight": true,
-      "soloTheater": true
-    },
-    {
-      "id": "the-odyssey",
-      "title": "The Odyssey",
+      "id": "spider-man-brand-new-day-in-3d",
+      "title": "Spider-Man: Brand New Day in 3D",
       "year": null,
-      "runtime": 172,
+      "runtime": 150,
       "director": "",
       "cast": [],
-      "genres": [
-        "Drama"
-      ],
+      "genres": [],
       "critic": 0,
       "audience": 0,
       "popularity": 0,
@@ -485,96 +1115,50 @@
       "posterUrl": null,
       "repertory": false,
       "showings": [
-        "musicbox|fri|12:15|70mm",
-        "musicbox|fri|16:15|70mm",
-        "musicbox|fri|20:15|70mm",
-        "musicbox|sat|14:00|70mm",
-        "musicbox|sat|18:00|70mm",
-        "musicbox|sat|22:00|70mm",
-        "musicbox|sun|14:00|70mm",
-        "musicbox|sun|18:00|70mm"
+        "rivereast|fri|11:30|3d",
+        "rivereast|fri|12:00|3d",
+        "rivereast|fri|17:00|3d",
+        "rivereast|fri|18:30|3d",
+        "rivereast|fri|19:00|3d",
+        "rivereast|fri|20:30|3d",
+        "rivereast|fri|22:30|3d",
+        "rivereast|fri|24:00|3d",
+        "rivereast|fri|25:40|3d",
+        "rivereast|sat|10:30|3d",
+        "rivereast|sat|13:30|3d",
+        "rivereast|sat|15:00|3d",
+        "rivereast|sat|18:30|3d",
+        "rivereast|sat|19:00|3d",
+        "rivereast|sat|20:30|3d",
+        "rivereast|sat|22:00|3d",
+        "rivereast|sun|10:00|3d",
+        "rivereast|sun|12:00|3d",
+        "rivereast|sun|13:30|3d",
+        "rivereast|sun|15:00|3d",
+        "rivereast|sun|17:00|3d",
+        "rivereast|sun|18:30|3d",
+        "rivereast|sun|19:00|3d",
+        "rivereast|sun|20:30|3d",
+        "rivereast|sun|22:00|3d",
+        "rivereast|sun|23:50|3d"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
-      ],
-      "note": "70mm presentation",
-      "oneNight": false,
-      "soloTheater": true
-    },
-    {
-      "id": "the-samurai-and-the-prisoner",
-      "title": "The Samurai and the Prisoner",
-      "year": null,
-      "runtime": 110,
-      "director": "",
-      "cast": [],
-      "genres": [
-        "Drama"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": false,
-      "showings": [
-        "siskel|fri|20:45|standard",
-        "siskel|sat|10:45|standard",
-        "siskel|sat|18:45|standard",
-        "siskel|sun|11:30|standard",
-        "siskel|sun|17:00|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
       "oneNight": false,
-      "soloTheater": true,
-      "runtimeUnknown": true
-    },
-    {
-      "id": "weekend-1967",
-      "title": "Weekend",
-      "year": 1967,
-      "runtime": 105,
-      "director": "Jean-Luc Godard",
-      "cast": [
-        "Mireille Darc",
-        "Jean Yanne"
-      ],
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Foreign"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|fri|18:15|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "",
-      "oneNight": true,
       "soloTheater": true
     },
     {
-      "id": "wild-inside",
-      "title": "Wild Inside",
+      "id": "stadium-seating",
+      "title": "Stadium Seating",
       "year": null,
-      "runtime": 110,
+      "runtime": 102,
       "director": "",
       "cast": [],
-      "genres": [
-        "Drama"
-      ],
+      "genres": [],
       "critic": 0,
       "audience": 0,
       "popularity": 0,
@@ -583,15 +1167,29 @@
       "posterUrl": null,
       "repertory": false,
       "showings": [
-        "siskel|sat|11:00|standard"
+        "rivereast|fri|11:00|standard",
+        "rivereast|fri|13:50|standard",
+        "rivereast|fri|16:45|standard",
+        "rivereast|fri|19:30|standard",
+        "rivereast|fri|20:05|standard",
+        "rivereast|fri|22:50|standard",
+        "rivereast|sat|11:00|standard",
+        "rivereast|sat|13:45|standard",
+        "rivereast|sat|16:30|standard",
+        "rivereast|sat|19:45|standard",
+        "rivereast|sat|22:45|standard",
+        "rivereast|sun|14:30|standard",
+        "rivereast|sun|17:20|standard",
+        "rivereast|sun|20:20|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
       ],
-      "note": "",
-      "oneNight": true,
-      "soloTheater": true,
-      "runtimeUnknown": true
+      "note": "One Night Only",
+      "oneNight": false,
+      "soloTheater": true
     }
   ]
 }
