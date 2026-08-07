@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import slateData from "./slate.json";
 
 /* ------------------------------------------------------------------
@@ -257,12 +257,16 @@ html { scrollbar-gutter: stable; }
 .mq-poster { aspect-ratio:2/3; border-radius:4px; padding:11px; display:flex; flex-direction:column; justify-content:flex-end;
    position:relative; overflow:hidden; }
 .mq-art { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-.mq-poster::after { content:''; position:absolute; inset:0;
-   background:linear-gradient(180deg,#00000000 38%,#000000A6 100%); }
-.mq-poster .pt, .mq-poster .py { position:relative; z-index:2; }
-.mq-poster .pt { font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase;
-   font-size:19px; line-height:.98; color:#fff; text-shadow:0 1px 8px #00000080; }
-.mq-poster .py { font-family:'Space Mono',monospace; font-size:10px; color:#ffffffb0; margin-top:3px; }
+.mq-poster.has-art { padding:0; background:#0E1024; }
+.mq-plate { position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column;
+   border:1px solid #ffffff33; border-radius:2px; padding:10px 9px; }
+.mq-plate .ptop { font-family:'Space Mono',monospace; font-size:8.5px; letter-spacing:.16em;
+   text-transform:uppercase; color:#ffffffc0; }
+.mq-plate .pt { margin-top:auto; font-family:'Barlow Condensed',sans-serif; font-weight:700;
+   text-transform:uppercase; font-size:20px; line-height:.94; color:#fff; }
+.mq-plate .prule { height:1px; background:#ffffff4D; margin:8px 0 7px; }
+.mq-plate .pmeta { font-family:'Space Mono',monospace; font-size:8.5px; line-height:1.4;
+   color:#ffffffb3; letter-spacing:.02em; }
 .mq-firstAt { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--bulb); margin-bottom:5px; }
 .mq-title { font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase;
    font-size:29px; line-height:1; letter-spacing:.01em; }
@@ -284,33 +288,22 @@ html { scrollbar-gutter: stable; }
 .mq-star { font-size:12px; color:var(--dim); border:1px solid var(--rail); border-radius:6px; padding:6px 11px; }
 .mq-star.on { color:var(--bulb); border-color:var(--bulb); }
 
-/* the showtime ruler — signature element */
-.mq-ruler { margin-top:16px; background:var(--balcony); border:1px solid var(--rail); border-radius:9px; padding:14px 14px 8px; }
-.mq-axis.hidden { height:0; border:none; margin:0; }
-.mq-axis { position:relative; height:16px; margin-left:96px; border-bottom:1px solid var(--rail); }
-.mq-tick { position:absolute; top:0; transform:translateX(-50%); font-family:'Space Mono',monospace;
-   font-size:10px; color:#6E739B; }
-.mq-tick::after { content:''; position:absolute; left:50%; top:14px; width:1px; height:5px; background:var(--rail); }
-.mq-lane { position:relative; display:flex; align-items:flex-start; padding:6px 0; border-bottom:1px dashed #ffffff10; }
-.mq-lane:last-child { border-bottom:none; }
-.mq-laneName { width:96px; flex:none; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase;
-   font-size:13px; letter-spacing:.05em; color:var(--dim); padding-right:8px; }
-.mq-laneName i { display:block; line-height:1.35; font-style:normal; font-family:'Space Mono',monospace; font-size:9.5px; color:#6E739B; }
-.mq-track { position:relative; flex:1; min-height:30px; }
-.mq-show { position:absolute; transform:translateX(-50%); white-space:nowrap;
-   font-family:'Space Mono',monospace; font-size:11px; padding:4px 7px; border-radius:5px;
-   background:#3A4076; border:1px solid #4A5192; color:var(--screen); }
+
+/* showtimes — one shape everywhere */
+.mq-times { margin-top:14px; background:var(--balcony); border:1px solid var(--rail); border-radius:9px; padding:6px 14px; }
+.mq-trow { display:flex; align-items:baseline; gap:14px; padding:11px 0; }
+.mq-trow + .mq-trow { border-top:1px dashed #ffffff12; }
+.mq-tname { width:100px; flex:none; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase;
+   font-size:14px; letter-spacing:.06em; color:var(--dim); }
+.mq-tname i { display:block; font-style:normal; font-family:'Space Mono',monospace;
+   font-size:9.5px; color:#6E739B; letter-spacing:0; }
+.mq-chips { display:flex; flex-wrap:wrap; gap:7px; }
+.mq-show { font-family:'Space Mono',monospace; font-size:12px; padding:5px 9px; border-radius:5px;
+   background:#3A4076; border:1px solid #4A5192; color:var(--screen); white-space:nowrap; }
 .mq-show:hover { background:var(--bulb); color:#13152A; border-color:var(--bulb); }
 .mq-show.picked { background:var(--bulb); color:#13152A; border-color:var(--bulb); font-weight:700; }
 .mq-show.prem { border-color:var(--reel); }
 .mq-show sup { font-size:8.5px; letter-spacing:.06em; margin-left:4px; opacity:.85; text-transform:uppercase; }
-.mq-band { display:flex; align-items:flex-start; gap:12px; padding:5px 0; }
-.mq-band + .mq-band { border-top:1px dashed #ffffff0D; }
-.mq-bandName { width:72px; flex:none; padding-top:5px; font-family:'Barlow Condensed',sans-serif;
-   text-transform:uppercase; font-size:11.5px; letter-spacing:.13em; color:#6E739B; }
-.mq-chips { display:flex; flex-wrap:wrap; gap:6px; }
-.mq-show.flat { position:static; transform:none; }
-.mq-rulerNote { font-size:11px; color:#6E739B; margin-top:8px; }
 
 /* plan tray */
 .mq-tray { position:fixed; left:0; right:0; bottom:0; background:#0E1024F2; border-top:1px solid var(--bulb);
@@ -332,6 +325,9 @@ html { scrollbar-gutter: stable; }
 .mq-modal { background:var(--house); border:1px solid var(--rail); border-radius:12px; max-width:540px;
    width:100%; max-height:86vh; overflow:auto; padding:24px; }
 .mq-h2 { font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; letter-spacing:.06em; font-size:24px; }
+.mq-foot { margin-top:34px; padding-top:18px; border-top:1px solid var(--rail); }
+.mq-link { color:var(--dim); text-decoration:underline; text-underline-offset:2px; }
+.mq-link:hover { color:var(--bulb); }
 .mq-note { font-size:12.5px; color:var(--dim); line-height:1.55; }
 .mq-empty { padding:56px 0; text-align:center; color:var(--dim); }
 .mq-empty p { font-size:14px; margin-top:8px; }
@@ -351,10 +347,8 @@ html { scrollbar-gutter: stable; }
   .mq-poster .pt { font-size:15px; }
   .mq-title { font-size:23px; }
   .mq-mark { font-size:33px; }
-  .mq-axis, .mq-laneName { margin-left:0; }
-  .mq-lane { flex-direction:column; align-items:stretch; }
-  .mq-laneName { width:auto; padding:6px 0 2px; }
-  .mq-axis { margin-left:0; }
+  .mq-trow { flex-direction:column; gap:6px; }
+  .mq-tname { width:auto; }
 }
 `;
 
@@ -362,151 +356,43 @@ html { scrollbar-gutter: stable; }
 
 const scoreClass = (n) => (n >= 80 ? "sc-hi" : n >= 60 ? "sc-mid" : "sc-lo");
 
-/* Motif chosen by the film's leading genre. Drawn in a 200x300 field
-   under the title block — never a stand-in for a real poster, just
-   something better than a color swatch while posterUrl is empty. */
-const MOTIF_ORDER = ["Horror", "Sci-Fi", "Thriller", "Action", "Romance", "Musical", "Animation", "Family", "Comedy", "Adventure", "Foreign", "Drama"];
-const motifFor = (film) => MOTIF_ORDER.find((g) => film.genres.includes(g)) || "Drama";
+/* Placeholder cover.
 
-function PosterArt({ film }) {
-  const m = motifFor(film);
-  const seed = [...film.id].reduce((a, c) => a + c.charCodeAt(0), 0);
-  const S = "#F0EDE3";
-  const A = "#FFB84D";
-  const art = {
-    Horror: (
-      <>
-        <rect x="86" y="0" width="28" height="196" fill={S} opacity=".9" />
-        <rect x="86" y="0" width="28" height="196" fill="url(#g-fade)" />
-        <circle cx="100" cy="150" r="74" fill="#000" opacity=".28" />
-      </>
-    ),
-    "Sci-Fi": (
-      <>
-        {[26, 46, 66, 86].map((r, i) => (
-          <circle key={r} cx="100" cy="112" r={r} fill="none" stroke={S} strokeWidth={i === 1 ? 2.4 : 1} opacity={0.75 - i * 0.14} />
-        ))}
-        <circle cx="100" cy="112" r="11" fill={A} />
-        <line x1="0" y1="112" x2="200" y2="112" stroke={S} strokeWidth=".6" opacity=".3" />
-      </>
-    ),
-    Thriller: (
-      <>
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <rect key={i} x={i % 2 ? 0 : 34} y={22 + i * 24} width={i % 2 ? 150 : 166} height="9" fill={S} opacity={0.16 + (i % 3) * 0.16} />
-        ))}
-        <rect x="34" y={22 + ((seed % 6) + 1) * 24} width="166" height="9" fill={A} />
-      </>
-    ),
-    Action: (
-      <>
-        {[0, 1, 2].map((i) => (
-          <polygon key={i} points={`${-30 + i * 62},300 ${30 + i * 62},0 ${64 + i * 62},0 ${4 + i * 62},300`} fill={S} opacity={0.14 + i * 0.1} />
-        ))}
-        <polygon points="120,300 180,0 192,0 132,300" fill={A} opacity=".85" />
-      </>
-    ),
-    Romance: (
-      <>
-        <circle cx="78" cy="118" r="52" fill="none" stroke={S} strokeWidth="1.6" opacity=".8" />
-        <circle cx="122" cy="118" r="52" fill="none" stroke={A} strokeWidth="1.6" opacity=".9" />
-        <path d="M100 70 a52 52 0 0 1 0 96 a52 52 0 0 1 0 -96" fill={S} opacity=".18" />
-      </>
-    ),
-    Musical: (
-      <>
-        {Array.from({ length: 22 }).map((_, i) => {
-          const x = ((i * 37 + seed) % 210) - 10;
-          return <line key={i} x1={x} y1={-10} x2={x - 34} y2={200} stroke={i % 5 === 0 ? A : S} strokeWidth={i % 5 === 0 ? 1.6 : 0.9} opacity={i % 5 === 0 ? 0.9 : 0.32} />;
-        })}
-      </>
-    ),
-    Animation: (
-      <>
-        <circle cx="66" cy="86" r="34" fill={S} opacity=".26" />
-        <rect x="92" y="60" width="62" height="62" rx="16" fill={A} opacity=".55" />
-        <circle cx="128" cy="146" r="26" fill={S} opacity=".38" />
-        <rect x="40" y="132" width="46" height="46" rx="12" fill={S} opacity=".18" />
-      </>
-    ),
-    Family: (
-      <>
-        <circle cx="70" cy="92" r="30" fill={A} opacity=".6" />
-        <circle cx="118" cy="112" r="42" fill={S} opacity=".24" />
-        <circle cx="92" cy="164" r="20" fill={S} opacity=".4" />
-      </>
-    ),
-    Comedy: (
-      <>
-        {[0, 1, 2, 3].map((i) => (
-          <path key={i} d={`M${10 + i * 6} ${64 + i * 26} q ${90 - i * 6} ${58 - i * 6} ${180 - i * 12} 0`} fill="none" stroke={i === 1 ? A : S} strokeWidth={i === 1 ? 2.4 : 1.2} opacity={i === 1 ? 0.95 : 0.4} />
-        ))}
-      </>
-    ),
-    Adventure: (
-      <>
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <path key={i} d={`M-10 ${190 - i * 26} q 60 ${-38 - i * 5} 105 ${-4 - i * 2} q 55 ${22 + i * 4} 115 ${-14 - i * 3}`} fill="none" stroke={i === 2 ? A : S} strokeWidth={i === 2 ? 2 : 1} opacity={i === 2 ? 0.9 : 0.34} />
-        ))}
-      </>
-    ),
-    Foreign: (
-      <>
-        {Array.from({ length: 40 }).map((_, i) => {
-          const c = i % 8, r = Math.floor(i / 8);
-          return <circle key={i} cx={26 + c * 21} cy={44 + r * 26} r={(i + seed) % 7 === 0 ? 5 : 2.4} fill={(i + seed) % 7 === 0 ? A : S} opacity={(i + seed) % 7 === 0 ? 0.95 : 0.34} />;
-        })}
-      </>
-    ),
-    Drama: (
-      <>
-        <circle cx="100" cy="150" r="58" fill={S} opacity=".2" />
-        <circle cx="100" cy="150" r="58" fill="none" stroke={A} strokeWidth="1.4" opacity=".8" />
-        <rect x="0" y="150" width="200" height="150" fill="#000" opacity=".22" />
-        <line x1="0" y1="150" x2="200" y2="150" stroke={S} strokeWidth="1.2" opacity=".7" />
-      </>
-    ),
-  }[m];
+   This is NOT meant to look like a poster — a fake poster for a real film
+   misrepresents it. It's a repertory programme card: the title set large,
+   the facts underneath, a format stamp. It reads as "we don't have the
+   artwork yet" rather than as bad art.
 
-  return (
-    <svg className="mq-art" viewBox="0 0 200 300" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="g-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#00000000" />
-          <stop offset="100%" stopColor="#000000CC" />
-        </linearGradient>
-        <filter id={`grain-${film.id}`}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-      </defs>
-      {art}
-      <rect width="200" height="300" filter={`url(#grain-${film.id})`} opacity=".07" />
-    </svg>
-  );
-}
-
+   Real posters arrive the moment TMDB_KEY is set; see enrich.py. */
 function Poster({ film }) {
+  if (film.posterUrl) {
+    return (
+      <div className="mq-poster has-art">
+        <img className="mq-art" src={film.posterUrl} alt={`${film.title} poster`} loading="lazy" />
+      </div>
+    );
+  }
+  const prem = (film.showings || [])
+    .map((x) => x.split("|")[3])
+    .find((x) => PREMIUM.includes(x));
+  const line = [film.director, film.genres?.[0]].filter(Boolean)[0] || "";
   return (
     <div className="mq-poster" style={{ background: gelFor(film.id) }}>
-      {film.posterUrl ? (
-        <img className="mq-art" src={film.posterUrl} alt={`${film.title} poster`} />
-      ) : (
-        <PosterArt film={film} />
-      )}
-      <div className="pt">{film.title}</div>
-      <div className="py">{film.year}</div>
+      <div className="mq-plate">
+        <div className="ptop">{prem ? FORMAT_LABEL[prem] : film.year || ""}</div>
+        <div className="pt">{film.title}</div>
+        <div className="prule" />
+        <div className="pmeta">
+          {line}
+          {film.year && line ? ` · ${film.year}` : ""}
+        </div>
+      </div>
     </div>
   );
 }
 
-const AXIS_START = 660; // 11:00
-const AXIS_END = 1500; // 1:00 AM
-const posPct = (mins) => ((Math.min(Math.max(mins, AXIS_START), AXIS_END) - AXIS_START) / (AXIS_END - AXIS_START)) * 100;
-
-/* Compact label: cinemas write evening times bare and mark mornings.
-   "9:45" and "9:45" for AM and PM would be indistinguishable, and a
-   21-screen multiplex runs from 9:45am to 1:35am. */
+/* Compact label. Cinemas print evening times bare and mark mornings, so
+   9:45a and 9:45 are unambiguous without the extra characters. */
 const fmtShort = (mins) => {
   const m = mins % 1440;
   const h24 = Math.floor(m / 60);
@@ -515,178 +401,35 @@ const fmtShort = (mins) => {
   return `${h}:${String(m % 60).padStart(2, "0")}${isAM ? "a" : ""}`;
 };
 
-// Rough on-screen width of a pill, in px. Space Mono at 11px is about
-// 6.6px per character; the format tag rides alongside at ~5.4px.
-const pillWidth = (s) => {
-  const tag = PREMIUM.includes(s.format) ? FORMAT_LABEL[s.format] : "";
-  return 16 + fmtShort(s.mins).length * 6.7 + (tag ? 6 + tag.length * 5.4 : 0);
-};
-
-/* Greedy row packing. Walk the showtimes in order and drop each one into
-   the first row where it clears the previous pill. Times keep their exact
-   horizontal position — the lane just gets taller instead of illegible. */
-const packLane = (lane, trackPx, pos) => {
-  const rows = [];
-  const placed = lane.map((s) => {
-    const w = pillWidth(s);
-    const left = (pos(s.mins) / 100) * trackPx - w / 2;
-    let r = rows.findIndex((end) => left >= end + 6);
-    if (r === -1) {
-      r = rows.length;
-      rows.push(0);
-    }
-    rows[r] = left + w;
-    return { s, row: r };
-  });
-  return { placed, rowCount: Math.max(1, rows.length) };
-};
-
-/* When a lane is too dense to place on the axis, group it instead.
-   A barcode strip above a uniform grid of chips is two different
-   encodings of the same times, and neither helps you read the other. */
-// Ten or more showtimes at one theater goes to bands. A fixed count, so
-// the choice can never change with the window width.
-const DENSE_AT = 10;
-
-const BANDS = [
-  { id: "morning", label: "Morning", lo: 0, hi: 12 * 60 },
-  { id: "afternoon", label: "Afternoon", lo: 12 * 60, hi: 17 * 60 },
-  { id: "evening", label: "Evening", lo: 17 * 60, hi: 21 * 60 },
-  { id: "late", label: "Late", lo: 21 * 60, hi: 99 * 60 },
-];
-// After-midnight showings are stored past 1440 (24:30, 25:15), so they
-// fall through to "Late" rather than wrapping back to morning.
-const bandOf = (mins) => BANDS.find((b) => mins >= b.lo && mins < b.hi) || BANDS[3];
-
-function Ruler({ film, day, picked, onPick, keep }) {
+/* One row per theater, times in order. Identical for a single screening
+   and for twenty-two — the axis version rendered two different shapes
+   depending on how busy a theater was, which made the page read as if
+   it were built by two different people. */
+function Showtimes({ film, day, picked, onPick, keep }) {
   const shows = film.showings
     .map((s) => parseShowing(s, film.id))
     .filter((s) => s.day === day && (!keep || keep(s)));
-  const trackRef = useRef(null);
-  const [trackPx, setTrackPx] = useState(560);
-
-  /* Measuring the track feeds back into the page height, and page height
-     feeds back into the track: more rows -> taller page -> scrollbar
-     appears -> viewport narrows ~15px -> re-measure -> different row
-     count -> shorter page -> scrollbar goes -> repeat. That oscillation
-     is the flicker, and mid-swing you see two layouts at once.
-
-     Three brakes: a reserved scrollbar gutter (in CSS) so width stops
-     changing at all, a 16px dead zone so small changes are ignored, and
-     a rAF gate so we never write during the observer's own callback. */
-  useLayoutEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    let frame = 0;
-    const measure = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        const next = el.offsetWidth || 560;
-        setTrackPx((prev) => (Math.abs(next - prev) < 16 ? prev : next));
-      });
-    };
-    setTrackPx(el.offsetWidth || 560);
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => {
-      cancelAnimationFrame(frame);
-      ro.disconnect();
-    };
-  }, []);
-
   const byTheater = THEATERS.filter((t) => shows.some((s) => s.theater === t.id));
   if (!byTheater.length) return null;
 
-  // Keep the default 11am–1am window so cards line up with each other,
-  // but stretch it when a film runs outside it. Clamping late shows to
-  // the edge was piling 12:30 and 1:35 on top of each other.
-  const lo = Math.min(AXIS_START, ...shows.map((s) => s.mins - 30));
-  const hi = Math.max(AXIS_END, ...shows.map((s) => s.mins + 45));
-  const pos = (m) => ((m - lo) / (hi - lo)) * 100;
-
-  // Anchor ticks to the start of the range rather than to even clock
-  // hours. Anchoring to even hours left the first stretch unlabelled
-  // whenever a film opened at, say, 11:00 — the axis began before the
-  // first number, which is what made the scale look wrong.
-  const ticks = [];
-  for (let t = Math.ceil(lo / 60) * 60; t <= hi - 40; t += 120) ticks.push(t);
-
-  // Pack every lane once. This used to run twice per render — once here
-  // to decide whether to draw the axis, once again while rendering — and
-  // with 45 cards on screen that doubled work is felt.
-  const lanes = byTheater.map((t) => {
-    const lane = shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins);
-    // Mode is decided by showing COUNT, never by measured width. Deciding
-    // it from packed row count made it width-dependent, and the two modes
-    // differ enough in height to toggle the page scrollbar — which changes
-    // the width, which flips the mode back. That loop is the flicker.
-    return { t, lane, dense: lane.length >= DENSE_AT, ...packLane(lane, trackPx, pos) };
-  });
-
-  // If every lane is dense, nothing is positioned on the axis and drawing
-  // it just implies a precision the chips below don't have.
-  const anyPositioned = lanes.some((l) => !l.dense);
-
   return (
-    <div className="mq-ruler">
-      <div className={`mq-axis${anyPositioned ? "" : " hidden"}`} ref={trackRef}>
-        {anyPositioned &&
-          ticks.map((t) => (
-            <div key={t} className="mq-tick" style={{ left: `${pos(t)}%` }}>
-              {fmtTime(t).replace(":00", "")}
-            </div>
-          ))}
-      </div>
-      {lanes.map(({ t, lane, placed, rowCount, dense }) => {
+    <div className="mq-times">
+      {byTheater.map((t) => {
+        const lane = shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins);
         return (
-          <div className="mq-lane" key={t.id}>
-            <div className="mq-laneName">
+          <div className="mq-trow" key={t.id}>
+            <div className="mq-tname">
               {t.short}
               <i>{t.dist} mi</i>
-              {lane.length >= DENSE_AT && <i>{lane.length} shows</i>}
             </div>
-            {/* Stacking works up to a point. Past three rows the lane
-                becomes a wall, so switch to a density strip showing the
-                shape of the day plus a wrapped, readable list of times. */}
-            {dense ? (
-              <div className="mq-track">
-                {BANDS.map((b) => {
-                  const inBand = lane.filter((x) => bandOf(x.mins).id === b.id);
-                  if (!inBand.length) return null;
-                  return (
-                    <div className="mq-band" key={b.id}>
-                      <div className="mq-bandName">{b.label}</div>
-                      <div className="mq-chips">
-                        {inBand.map((s2) => {
-                          const prem = PREMIUM.includes(s2.format);
-                          const on = picked.includes(s2.key);
-                          return (
-                            <button
-                              key={s2.key}
-                              className={`mq-show flat${prem ? " prem" : ""}${on ? " picked" : ""}`}
-                              onClick={() => onPick(s2)}
-                              title={`${fmtTime(s2.mins)} · ${t.name} · ${FORMAT_LABEL[s2.format]} — ${on ? "remove from plan" : "add to plan"}`}
-                            >
-                              {fmtShort(s2.mins)}
-                              {prem && <sup>{FORMAT_LABEL[s2.format]}</sup>}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-            <div className="mq-track" style={{ height: rowCount * 26 + 10 }}>
-              {placed.map(({ s, row }) => {
+            <div className="mq-chips">
+              {lane.map((s) => {
                 const prem = PREMIUM.includes(s.format);
                 const on = picked.includes(s.key);
                 return (
                   <button
                     key={s.key}
                     className={`mq-show${prem ? " prem" : ""}${on ? " picked" : ""}`}
-                    style={{ left: `${pos(s.mins)}%`, top: row * 26 + 4 }}
                     onClick={() => onPick(s)}
                     title={`${fmtTime(s.mins)} · ${t.name} · ${FORMAT_LABEL[s.format]} — ${on ? "remove from plan" : "add to plan"}`}
                   >
@@ -696,7 +439,6 @@ function Ruler({ film, day, picked, onPick, keep }) {
                 );
               })}
             </div>
-            )}
           </div>
         );
       })}
@@ -1196,18 +938,34 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
                       {starred ? "★ On your watchlist" : "☆ Watch for this"}
                     </button>
                   </div>
-                  <Ruler film={f} day={day} picked={plan.map((p) => p.key)} onPick={pickShow} keep={keepShowing} />
+                  <Showtimes film={f} day={day} picked={plan.map((p) => p.key)} onPick={pickShow} keep={keepShowing} />
                 </div>
               </article>
             );
           })
         )}
 
-        <p className="mq-note" style={{ marginTop: 30 }}>
-          Invented slate, dated to the weekend of August 7–9, 2026. The films, directors and casts of the pre-2026 titles are
-          real; the 2026 releases, the theater assignments and every showtime are not. Point <span className="mq-mono">SLATE</span> at
-          a real feed and every filter, sort and recommendation here works unchanged.
-        </p>
+        <footer className="mq-foot">
+          {slateData.source === "demo" ? (
+            <p className="mq-note">Sample listings. Not real showtimes — check the theater's own site.</p>
+          ) : (
+            <p className="mq-note">
+              Showtimes scraped from public listings for Music Box, Gene Siskel Film Center and AMC River East 21.
+              Always worth confirming with the theater before you travel.
+            </p>
+          )}
+          {/* TMDB's terms require crediting them as the source of the data
+              and images, and require making clear they haven't endorsed this. */}
+          {SLATE.some((f) => f.posterUrl || f.director) && (
+            <p className="mq-note" style={{ marginTop: 8 }}>
+              Film metadata and poster art from{" "}
+              <a className="mq-link" href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">
+                The Movie Database (TMDB)
+              </a>
+              . This product uses the TMDB API but is not endorsed or certified by TMDB.
+            </p>
+          )}
+        </footer>
       </div>
 
       {/* ---------- plan tray ---------- */}
