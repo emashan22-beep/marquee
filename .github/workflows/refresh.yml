@@ -2,10 +2,12 @@ name: Refresh listings
 
 # Actions tab -> "Refresh listings" -> "Run workflow".
 #
-# Modes:
-#   refresh  - scrape and commit (default)
-#   dry-run  - scrape and print, commit nothing
-#   probe    - diagnose one theater when a refresh fails
+# This workflow scrapes, commits, builds AND deploys, all in one run.
+#
+# Why it deploys itself: a commit pushed from Actions with the default
+# GITHUB_TOKEN does NOT trigger other workflows. GitHub blocks that to
+# prevent infinite loops. So deploy.yml never fires from this commit,
+# and the site would keep serving the previous listings forever.
 
 on:
   workflow_dispatch:
@@ -28,6 +30,12 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -55,9 +63,6 @@ jobs:
           OMDB_KEY: ${{ secrets.OMDB_KEY }}
         run: python run.py --dry-run
 
-      # --allow-partial: a theater that fails is skipped and named in the
-      # site's "Partial" banner, rather than throwing away the ones that
-      # worked. Failed theaters contribute no rows, so nothing bad ships.
       - name: Scrape showtimes
         if: ${{ inputs.mode == 'refresh' }}
         working-directory: pipeline
@@ -75,6 +80,7 @@ jobs:
           shows = [s for f in d['films'] for s in f['showings']]
           seen = sorted({s.split('|')[0] for s in shows})
           print(f\"{len(d['films'])} films, {len(shows)} showings\")
+          print('fetchedAt:', d['fetchedAt'])
           print('theaters included:', ', '.join(seen))
           print('missing:', d['partial'] or 'nothing')
           "
@@ -85,6 +91,40 @@ jobs:
           git config user.name  "marquee-bot"
           git config user.email "marquee-bot@users.noreply.github.com"
           git add src/slate.json
-          git diff --staged --quiet && echo "no change" && exit 0
-          git commit -m "listings $(date -u +%F)"
-          git push
+          if git diff --staged --quiet; then
+            echo "slate.json unchanged"
+          else
+            git commit -m "listings $(date -u +%F)"
+            git push
+          fi
+
+      # --- build and publish, in this same run -----------------------
+      # Nothing else will do it: the commit above cannot trigger
+      # deploy.yml, so this workflow has to finish the job itself.
+      - uses: actions/setup-node@v4
+        if: ${{ inputs.mode == 'refresh' }}
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+        if: ${{ inputs.mode == 'refresh' }}
+      - run: npm run build
+        if: ${{ inputs.mode == 'refresh' }}
+
+      - uses: actions/configure-pages@v5
+        if: ${{ inputs.mode == 'refresh' }}
+      - uses: actions/upload-pages-artifact@v3
+        if: ${{ inputs.mode == 'refresh' }}
+        with:
+          path: ./dist
+
+  deploy:
+    needs: refresh
+    if: ${{ inputs.mode == 'refresh' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
