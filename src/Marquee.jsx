@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import slateData from "./slate.json";
 
 /* ------------------------------------------------------------------
@@ -289,19 +289,25 @@ const CSS = `
 .mq-tick { position:absolute; top:0; transform:translateX(-50%); font-family:'Space Mono',monospace;
    font-size:10px; color:#6E739B; }
 .mq-tick::after { content:''; position:absolute; left:50%; top:14px; width:1px; height:5px; background:var(--rail); }
-.mq-lane { position:relative; display:flex; align-items:center; min-height:34px; border-bottom:1px dashed #ffffff10; }
+.mq-lane { position:relative; display:flex; align-items:flex-start; padding:6px 0; border-bottom:1px dashed #ffffff10; }
 .mq-lane:last-child { border-bottom:none; }
 .mq-laneName { width:96px; flex:none; font-family:'Barlow Condensed',sans-serif; text-transform:uppercase;
    font-size:13px; letter-spacing:.05em; color:var(--dim); padding-right:8px; }
-.mq-laneName i { display:block; font-style:normal; font-family:'Space Mono',monospace; font-size:9.5px; color:#6E739B; }
-.mq-track { position:relative; flex:1; height:34px; }
-.mq-show { position:absolute; top:5px; transform:translateX(-50%); white-space:nowrap;
+.mq-laneName i { display:block; line-height:1.35; font-style:normal; font-family:'Space Mono',monospace; font-size:9.5px; color:#6E739B; }
+.mq-track { position:relative; flex:1; min-height:30px; }
+.mq-show { position:absolute; transform:translateX(-50%); white-space:nowrap;
    font-family:'Space Mono',monospace; font-size:11px; padding:4px 7px; border-radius:5px;
    background:#3A4076; border:1px solid #4A5192; color:var(--screen); }
 .mq-show:hover { background:var(--bulb); color:#13152A; border-color:var(--bulb); }
 .mq-show.picked { background:var(--bulb); color:#13152A; border-color:var(--bulb); font-weight:700; }
 .mq-show.prem { border-color:var(--reel); }
 .mq-show sup { font-size:8.5px; letter-spacing:.06em; margin-left:4px; opacity:.85; text-transform:uppercase; }
+.mq-density { position:relative; height:15px; margin-bottom:9px; border-bottom:1px solid #ffffff14; }
+.mq-dot { position:absolute; bottom:0; width:2px; height:8px; background:#6E739B;
+   transform:translateX(-50%); border-radius:1px; }
+.mq-dot.prem { background:var(--reel); height:12px; width:2.5px; }
+.mq-chips { display:flex; flex-wrap:wrap; gap:6px; }
+.mq-show.flat { position:static; transform:none; }
 .mq-rulerNote { font-size:11px; color:#6E739B; margin-top:8px; }
 
 /* plan tray */
@@ -496,51 +502,147 @@ const AXIS_START = 660; // 11:00
 const AXIS_END = 1500; // 1:00 AM
 const posPct = (mins) => ((Math.min(Math.max(mins, AXIS_START), AXIS_END) - AXIS_START) / (AXIS_END - AXIS_START)) * 100;
 
+/* Compact label: cinemas write evening times bare and mark mornings.
+   "9:45" and "9:45" for AM and PM would be indistinguishable, and a
+   21-screen multiplex runs from 9:45am to 1:35am. */
+const fmtShort = (mins) => {
+  const m = mins % 1440;
+  const h24 = Math.floor(m / 60);
+  const isAM = h24 < 12;
+  const h = h24 % 12 || 12;
+  return `${h}:${String(m % 60).padStart(2, "0")}${isAM ? "a" : ""}`;
+};
+
+// Rough on-screen width of a pill, in px. Space Mono at 11px is about
+// 6.6px per character; the format tag rides alongside at ~5.4px.
+const pillWidth = (s) => {
+  const tag = PREMIUM.includes(s.format) ? FORMAT_LABEL[s.format] : "";
+  return 16 + fmtShort(s.mins).length * 6.7 + (tag ? 6 + tag.length * 5.4 : 0);
+};
+
+/* Greedy row packing. Walk the showtimes in order and drop each one into
+   the first row where it clears the previous pill. Times keep their exact
+   horizontal position — the lane just gets taller instead of illegible. */
+const packLane = (lane, trackPx, pos) => {
+  const rows = [];
+  const placed = lane.map((s) => {
+    const w = pillWidth(s);
+    const left = (pos(s.mins) / 100) * trackPx - w / 2;
+    let r = rows.findIndex((end) => left >= end + 6);
+    if (r === -1) {
+      r = rows.length;
+      rows.push(0);
+    }
+    rows[r] = left + w;
+    return { s, row: r };
+  });
+  return { placed, rowCount: Math.max(1, rows.length) };
+};
+
 function Ruler({ film, day, picked, onPick, keep }) {
   const shows = film.showings
     .map((s) => parseShowing(s, film.id))
     .filter((s) => s.day === day && (!keep || keep(s)));
+  const trackRef = useRef(null);
+  const [trackPx, setTrackPx] = useState(560);
+
+  useLayoutEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const measure = () => setTrackPx(el.offsetWidth || 560);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   const byTheater = THEATERS.filter((t) => shows.some((s) => s.theater === t.id));
   if (!byTheater.length) return null;
-  const ticks = [720, 840, 960, 1080, 1200, 1320, 1440];
+
+  // Keep the default 11am–1am window so cards line up with each other,
+  // but stretch it when a film runs outside it. Clamping late shows to
+  // the edge was piling 12:30 and 1:35 on top of each other.
+  const lo = Math.min(AXIS_START, ...shows.map((s) => s.mins - 30));
+  const hi = Math.max(AXIS_END, ...shows.map((s) => s.mins + 45));
+  const pos = (m) => ((m - lo) / (hi - lo)) * 100;
+
+  const ticks = [];
+  for (let t = Math.ceil(lo / 120) * 120; t <= hi - 30; t += 120) ticks.push(t);
+
   return (
     <div className="mq-ruler">
-      <div className="mq-axis">
+      <div className="mq-axis" ref={trackRef}>
         {ticks.map((t) => (
-          <div key={t} className="mq-tick" style={{ left: `${posPct(t)}%` }}>
+          <div key={t} className="mq-tick" style={{ left: `${pos(t)}%` }}>
             {fmtTime(t).replace(":00", "")}
           </div>
         ))}
       </div>
-      {byTheater.map((t) => (
-        <div className="mq-lane" key={t.id}>
-          <div className="mq-laneName">
-            {t.short}
-            <i>{t.dist} mi</i>
-          </div>
-          <div className="mq-track">
-            {shows
-              .filter((s) => s.theater === t.id)
-              .sort((a, b) => a.mins - b.mins)
-              .map((s) => {
+      {byTheater.map((t) => {
+        const lane = shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins);
+        const { placed, rowCount } = packLane(lane, trackPx, pos);
+        return (
+          <div className="mq-lane" key={t.id}>
+            <div className="mq-laneName">
+              {t.short}
+              <i>{t.dist} mi</i>
+              {lane.length > 8 && <i>{lane.length} shows</i>}
+            </div>
+            {/* Stacking works up to a point. Past three rows the lane
+                becomes a wall, so switch to a density strip showing the
+                shape of the day plus a wrapped, readable list of times. */}
+            {rowCount > 3 ? (
+              <div className="mq-track">
+                <div className="mq-density">
+                  {lane.map((s) => (
+                    <span
+                      key={s.key}
+                      className={`mq-dot${PREMIUM.includes(s.format) ? " prem" : ""}`}
+                      style={{ left: `${pos(s.mins)}%` }}
+                    />
+                  ))}
+                </div>
+                <div className="mq-chips">
+                  {lane.map((s) => {
+                    const prem = PREMIUM.includes(s.format);
+                    const on = picked.includes(s.key);
+                    return (
+                      <button
+                        key={s.key}
+                        className={`mq-show flat${prem ? " prem" : ""}${on ? " picked" : ""}`}
+                        onClick={() => onPick(s)}
+                        title={`${fmtTime(s.mins)} · ${t.name} · ${FORMAT_LABEL[s.format]} — ${on ? "remove from plan" : "add to plan"}`}
+                      >
+                        {fmtShort(s.mins)}
+                        {prem && <sup>{FORMAT_LABEL[s.format]}</sup>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+            <div className="mq-track" style={{ height: rowCount * 26 + 10 }}>
+              {placed.map(({ s, row }) => {
                 const prem = PREMIUM.includes(s.format);
                 const on = picked.includes(s.key);
                 return (
                   <button
                     key={s.key}
                     className={`mq-show${prem ? " prem" : ""}${on ? " picked" : ""}`}
-                    style={{ left: `${posPct(s.mins)}%` }}
+                    style={{ left: `${pos(s.mins)}%`, top: row * 26 + 4 }}
                     onClick={() => onPick(s)}
                     title={`${fmtTime(s.mins)} · ${t.name} · ${FORMAT_LABEL[s.format]} — ${on ? "remove from plan" : "add to plan"}`}
                   >
-                    {fmtTime(s.mins).replace(" PM", "").replace(" AM", "")}
+                    {fmtShort(s.mins)}
                     {prem && <sup>{FORMAT_LABEL[s.format]}</sup>}
                   </button>
                 );
               })}
+            </div>
+            )}
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -797,6 +899,12 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
   };
 
   const staleHours = FETCHED_AT ? (Date.now() - new Date(FETCHED_AT)) / 3.6e6 : null;
+  // During the weekend the listings should be hours old, so 30h means a
+  // scrape probably failed. Midweek, a Sunday-morning scrape is simply the
+  // most recent one there is — nagging about it every Tuesday trains you
+  // to ignore the banner. Only shout when it's genuinely wrong.
+  const inWeekend = DAYS.some((d) => d.iso === toISO(new Date()));
+  const stale = staleHours !== null && (inWeekend ? staleHours > 30 : staleHours > 168);
   const updatedLabel = FETCHED_AT
     ? new Date(FETCHED_AT).toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" })
     : "never — demo data";
@@ -831,10 +939,12 @@ filmIds must be ids from the slate that your answer recommends, most relevant fi
           </div>
         </div>
       )}
-      {staleHours !== null && staleHours > 30 && (
+      {stale && (
         <div className="mq-fake">
           <div className="mq-fakeIn">
-            <b>Stale</b> — listings last updated {Math.round(staleHours)} hours ago. A scrape may have failed;
+            <b>Stale</b> — listings last updated {staleHours < 48
+              ? `${Math.round(staleHours)} hours`
+              : `${Math.round(staleHours / 24)} days`} ago. A scrape may have failed;
             check the theater's site before you go.
           </div>
         </div>
