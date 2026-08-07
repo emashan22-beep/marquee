@@ -1,13 +1,14 @@
 {
-  "fetchedAt": "2026-08-05T12:00+00:00",
+  "fetchedAt": "2026-08-07T00:31+00:00",
   "source": "live",
   "weekend": [
     "2026-08-07",
     "2026-08-08",
     "2026-08-09"
   ],
-  "partial": [
-    "rivereast: not yet scraped"
+  "partial": [],
+  "unmatched": [
+    "TMDB_KEY not set - skipping posters, scores and cast"
   ],
   "films": [
     {
@@ -34,7 +35,7 @@
         "musicbox|sat|23:59|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date"
       ],
       "note": "midnight",
       "oneNight": true,
@@ -67,7 +68,8 @@
         "musicbox|sun|11:30|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "matinee",
       "oneNight": false,
@@ -104,13 +106,55 @@
         "musicbox|sun|14:15|standard",
         "musicbox|sun|16:30|standard",
         "musicbox|sun|18:45|standard",
-        "musicbox|sun|21:30|standard"
+        "musicbox|sun|21:30|standard",
+        "rivereast|fri|12:10|standard",
+        "rivereast|fri|14:40|standard",
+        "rivereast|fri|17:15|standard",
+        "rivereast|fri|19:45|standard",
+        "rivereast|sat|10:15|standard",
+        "rivereast|sat|15:15|standard",
+        "rivereast|sat|17:45|standard",
+        "rivereast|sat|19:50|standard",
+        "rivereast|sun|12:40|standard",
+        "rivereast|sun|15:10|standard",
+        "rivereast|sun|17:40|standard",
+        "rivereast|sun|19:40|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
       "oneNight": false,
+      "soloTheater": false
+    },
+    {
+      "id": "dc",
+      "title": "DC",
+      "year": null,
+      "runtime": 150,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|sun|15:15|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": true,
       "soloTheater": true
     },
     {
@@ -139,9 +183,37 @@
         "siskel|sun|11:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "25 for 25",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "hadestown-the-musical",
+      "title": "Hadestown: The Musical",
+      "year": null,
+      "runtime": 141,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|20:20|standard",
+        "rivereast|sat|17:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date"
+      ],
+      "note": "",
       "oneNight": false,
       "soloTheater": true
     },
@@ -170,7 +242,7 @@
         "siskel|sun|16:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
@@ -200,7 +272,7 @@
         "siskel|fri|20:30|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-07&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
@@ -224,9 +296,12 @@
       "posterUrl": null,
       "repertory": false,
       "showings": [
+        "musicbox|fri|12:15|70mm",
         "musicbox|fri|13:45|standard",
+        "musicbox|fri|16:15|70mm",
         "musicbox|fri|16:45|standard",
         "musicbox|fri|19:00|standard",
+        "musicbox|fri|20:15|70mm",
         "musicbox|fri|21:30|standard",
         "musicbox|sat|14:30|standard",
         "musicbox|sat|16:45|standard",
@@ -238,7 +313,50 @@
         "musicbox|sun|21:45|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "ice-cream-man",
+      "title": "Ice Cream Man",
+      "year": null,
+      "runtime": 86,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|12:15|standard",
+        "rivereast|fri|14:45|standard",
+        "rivereast|fri|17:30|standard",
+        "rivereast|fri|20:10|standard",
+        "rivereast|fri|22:15|standard",
+        "rivereast|fri|23:50|standard",
+        "rivereast|fri|24:00|standard",
+        "rivereast|sat|12:20|standard",
+        "rivereast|sat|14:50|standard",
+        "rivereast|sat|17:15|standard",
+        "rivereast|sat|20:15|standard",
+        "rivereast|sat|22:50|standard",
+        "rivereast|sun|12:20|standard",
+        "rivereast|sun|14:45|standard",
+        "rivereast|sun|20:10|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
       "oneNight": false,
@@ -271,7 +389,8 @@
         "musicbox|sun|11:00|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "matinee",
       "oneNight": false,
@@ -304,7 +423,8 @@
         "siskel|sun|14:30|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
       "oneNight": false,
@@ -335,28 +455,135 @@
         "siskel|sat|13:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
       "soloTheater": true
     },
     {
-      "id": "singin-in-the-rain-1952",
-      "title": "Singin' in the Rain",
-      "year": 1952,
-      "runtime": 103,
-      "director": "Stanley Donen & Gene Kelly",
-      "cast": [
-        "Gene Kelly",
-        "Debbie Reynolds",
-        "Donald O'Connor"
+      "id": "minions-monsters",
+      "title": "Minions & Monsters",
+      "year": null,
+      "runtime": 90,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|11:40|standard"
       ],
-      "genres": [
-        "Musical",
-        "Comedy",
-        "Family"
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date"
       ],
+      "note": "",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "minions-monsters-in-3d",
+      "title": "Minions & Monsters in 3D",
+      "year": null,
+      "runtime": 90,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|sun|15:30|3d"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "one-night-only",
+      "title": "One Night Only",
+      "year": null,
+      "runtime": 102,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|11:00|standard",
+        "rivereast|fri|13:50|standard",
+        "rivereast|fri|16:45|standard",
+        "rivereast|fri|19:30|standard",
+        "rivereast|fri|20:05|standard",
+        "rivereast|fri|22:50|standard",
+        "rivereast|sat|11:00|standard",
+        "rivereast|sat|13:45|standard",
+        "rivereast|sat|16:30|standard",
+        "rivereast|sat|19:45|standard",
+        "rivereast|sat|22:45|standard",
+        "rivereast|sun|14:30|standard",
+        "rivereast|sun|17:20|standard",
+        "rivereast|sun|20:20|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "only-yesterday-35th-anniversary-studio-ghibli-fe",
+      "title": "Only Yesterday - 35th Anniversary - Studio Ghibli Fest 2026",
+      "year": null,
+      "runtime": 126,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|sun|12:30|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "singin-in-the-rain-65th-anniversary-presented-by-2017",
+      "title": "Singin' in the Rain - 65th Anniversary presented by TCM",
+      "year": 2017,
+      "runtime": 147,
+      "director": "",
+      "cast": [],
+      "genres": [],
       "critic": 0,
       "audience": 0,
       "popularity": 0,
@@ -365,13 +592,217 @@
       "posterUrl": null,
       "repertory": true,
       "showings": [
-        "siskel|fri|18:00|standard"
+        "siskel|fri|18:00|standard",
+        "siskel|fri|20:30|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-07&sort=date"
       ],
-      "note": "Technicolor Weekend",
-      "oneNight": true,
+      "note": "presented by",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "spider-man-brand-new-day",
+      "title": "Spider-Man: Brand New Day",
+      "year": null,
+      "runtime": 145,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|09:45|standard",
+        "rivereast|fri|10:45|standard",
+        "rivereast|fri|12:30|standard",
+        "rivereast|fri|12:50|dolby",
+        "rivereast|fri|13:15|standard",
+        "rivereast|fri|15:45|standard",
+        "rivereast|fri|16:00|standard",
+        "rivereast|fri|16:20|dolby",
+        "rivereast|fri|16:45|standard",
+        "rivereast|fri|18:00|standard",
+        "rivereast|fri|19:20|standard",
+        "rivereast|fri|19:50|dolby",
+        "rivereast|fri|20:10|standard",
+        "rivereast|fri|20:45|standard",
+        "rivereast|fri|21:00|standard",
+        "rivereast|fri|21:30|standard",
+        "rivereast|fri|22:40|standard",
+        "rivereast|fri|23:10|dolby",
+        "rivereast|fri|23:30|standard",
+        "rivereast|fri|24:30|standard",
+        "rivereast|fri|25:15|standard",
+        "rivereast|fri|25:30|standard",
+        "rivereast|sat|10:45|standard",
+        "rivereast|sat|11:15|standard",
+        "rivereast|sat|12:30|standard",
+        "rivereast|sat|12:50|dolby",
+        "rivereast|sat|14:20|standard",
+        "rivereast|sat|14:45|standard",
+        "rivereast|sat|15:30|standard",
+        "rivereast|sat|16:00|standard",
+        "rivereast|sat|16:20|dolby",
+        "rivereast|sat|18:00|standard",
+        "rivereast|sat|18:15|standard",
+        "rivereast|sat|19:15|standard",
+        "rivereast|sat|19:30|standard",
+        "rivereast|sat|19:50|dolby",
+        "rivereast|sat|20:45|standard",
+        "rivereast|sat|21:00|standard",
+        "rivereast|sat|21:20|standard",
+        "rivereast|sat|21:40|standard",
+        "rivereast|sat|22:50|standard",
+        "rivereast|sat|23:10|dolby",
+        "rivereast|sun|10:50|standard",
+        "rivereast|sun|12:15|standard",
+        "rivereast|sun|12:30|standard",
+        "rivereast|sun|12:50|dolby",
+        "rivereast|sun|14:20|standard",
+        "rivereast|sun|15:20|standard",
+        "rivereast|sun|16:00|standard",
+        "rivereast|sun|16:20|dolby",
+        "rivereast|sun|17:30|standard",
+        "rivereast|sun|18:00|standard",
+        "rivereast|sun|19:30|standard",
+        "rivereast|sun|19:50|dolby",
+        "rivereast|sun|20:50|standard",
+        "rivereast|sun|21:20|standard",
+        "rivereast|sun|22:45|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "spider-man-brand-new-day-in-3d",
+      "title": "Spider-Man: Brand New Day in 3D",
+      "year": null,
+      "runtime": 150,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|11:30|3d",
+        "rivereast|fri|12:00|3d",
+        "rivereast|fri|17:00|3d",
+        "rivereast|fri|18:30|3d",
+        "rivereast|fri|19:00|3d",
+        "rivereast|fri|20:30|3d",
+        "rivereast|fri|22:30|3d",
+        "rivereast|fri|24:00|3d",
+        "rivereast|fri|25:40|3d",
+        "rivereast|sat|10:30|3d",
+        "rivereast|sat|13:30|3d",
+        "rivereast|sat|15:00|3d",
+        "rivereast|sat|18:30|3d",
+        "rivereast|sat|19:00|3d",
+        "rivereast|sat|20:30|3d",
+        "rivereast|sat|22:00|3d",
+        "rivereast|sun|10:00|3d",
+        "rivereast|sun|12:00|3d",
+        "rivereast|sun|13:30|3d",
+        "rivereast|sun|15:00|3d",
+        "rivereast|sun|17:00|3d",
+        "rivereast|sun|18:30|3d",
+        "rivereast|sun|19:00|3d",
+        "rivereast|sun|20:30|3d",
+        "rivereast|sun|22:00|3d",
+        "rivereast|sun|23:50|3d"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "splash-city",
+      "title": "Splash City",
+      "year": null,
+      "runtime": 123,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|13:00|standard",
+        "rivereast|fri|15:40|standard",
+        "rivereast|sat|17:20|standard",
+        "rivereast|sun|14:00|standard",
+        "rivereast|sun|16:40|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
+      "soloTheater": true
+    },
+    {
+      "id": "super-troopers-3",
+      "title": "Super Troopers 3",
+      "year": null,
+      "runtime": 104,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|11:10|standard",
+        "rivereast|fri|16:40|standard",
+        "rivereast|fri|20:00|standard",
+        "rivereast|fri|22:40|standard",
+        "rivereast|fri|24:30|standard",
+        "rivereast|sat|16:25|standard",
+        "rivereast|sat|20:00|standard",
+        "rivereast|sat|22:45|standard",
+        "rivereast|sun|13:15|standard",
+        "rivereast|sun|17:15|standard",
+        "rivereast|sun|20:00|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
       "soloTheater": true
     },
     {
@@ -399,37 +830,7 @@
         "siskel|sun|13:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
-      ],
-      "note": "Technicolor Weekend",
-      "oneNight": true,
-      "soloTheater": true
-    },
-    {
-      "id": "the-busy-body-1967",
-      "title": "The Busy Body",
-      "year": 1967,
-      "runtime": 90,
-      "director": "William Castle",
-      "cast": [
-        "Sid Caesar",
-        "Robert Ryan"
-      ],
-      "genres": [
-        "Comedy"
-      ],
-      "critic": 0,
-      "audience": 0,
-      "popularity": 0,
-      "opened": "",
-      "blurb": "",
-      "posterUrl": null,
-      "repertory": true,
-      "showings": [
-        "siskel|sat|15:30|standard"
-      ],
-      "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
@@ -461,10 +862,40 @@
         "siskel|sat|18:30|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date"
       ],
       "note": "Technicolor Weekend",
       "oneNight": true,
+      "soloTheater": true
+    },
+    {
+      "id": "the-invite",
+      "title": "The Invite",
+      "year": null,
+      "runtime": 107,
+      "director": "",
+      "cast": [],
+      "genres": [],
+      "critic": 0,
+      "audience": 0,
+      "popularity": 0,
+      "opened": "",
+      "blurb": "",
+      "posterUrl": null,
+      "repertory": false,
+      "showings": [
+        "rivereast|fri|14:00|standard",
+        "rivereast|fri|17:30|standard",
+        "rivereast|sat|16:40|standard",
+        "rivereast|sun|17:50|standard"
+      ],
+      "sources": [
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
+      ],
+      "note": "",
+      "oneNight": false,
       "soloTheater": true
     },
     {
@@ -492,14 +923,52 @@
         "musicbox|sat|18:00|70mm",
         "musicbox|sat|22:00|70mm",
         "musicbox|sun|14:00|70mm",
-        "musicbox|sun|18:00|70mm"
+        "musicbox|sun|18:00|70mm",
+        "rivereast|fri|11:20|standard",
+        "rivereast|fri|12:30|70mm",
+        "rivereast|fri|13:20|standard",
+        "rivereast|fri|14:10|standard",
+        "rivereast|fri|15:10|standard",
+        "rivereast|fri|17:10|standard",
+        "rivereast|fri|18:10|standard",
+        "rivereast|fri|19:00|standard",
+        "rivereast|fri|20:30|70mm",
+        "rivereast|fri|22:10|standard",
+        "rivereast|fri|23:00|standard",
+        "rivereast|fri|24:20|70mm",
+        "rivereast|sat|10:10|standard",
+        "rivereast|sat|11:40|standard",
+        "rivereast|sat|13:20|standard",
+        "rivereast|sat|15:40|standard",
+        "rivereast|sat|16:30|70mm",
+        "rivereast|sat|18:20|standard",
+        "rivereast|sat|19:10|standard",
+        "rivereast|sat|20:30|70mm",
+        "rivereast|sat|22:15|standard",
+        "rivereast|sat|23:00|standard",
+        "rivereast|sat|24:15|70mm",
+        "rivereast|sun|10:10|standard",
+        "rivereast|sun|13:30|standard",
+        "rivereast|sun|14:10|standard",
+        "rivereast|sun|16:30|70mm",
+        "rivereast|sun|17:20|standard",
+        "rivereast|sun|18:30|standard",
+        "rivereast|sun|19:10|standard",
+        "rivereast|sun|20:30|70mm",
+        "rivereast|sun|21:30|standard",
+        "rivereast|sun|22:30|standard"
       ],
       "sources": [
-        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=940&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "70mm presentation",
       "oneNight": false,
-      "soloTheater": true
+      "soloTheater": false
     },
     {
       "id": "the-samurai-and-the-prisoner",
@@ -521,48 +990,46 @@
       "showings": [
         "siskel|fri|20:45|standard",
         "siskel|sat|10:45|standard",
+        "siskel|sat|13:00|standard",
         "siskel|sat|18:45|standard",
         "siskel|sun|11:30|standard",
+        "siskel|sun|16:00|standard",
         "siskel|sun|17:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-07&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
       "oneNight": false,
-      "soloTheater": true,
-      "runtimeUnknown": true
+      "soloTheater": true
     },
     {
-      "id": "weekend-1967",
-      "title": "Weekend",
-      "year": 1967,
-      "runtime": 105,
-      "director": "Jean-Luc Godard",
-      "cast": [
-        "Mireille Darc",
-        "Jean Yanne"
-      ],
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Foreign"
-      ],
+      "id": "toy-story-5",
+      "title": "Toy Story 5",
+      "year": null,
+      "runtime": 102,
+      "director": "",
+      "cast": [],
+      "genres": [],
       "critic": 0,
       "audience": 0,
       "popularity": 0,
       "opened": "",
       "blurb": "",
       "posterUrl": null,
-      "repertory": true,
+      "repertory": false,
       "showings": [
-        "siskel|fri|18:15|standard"
+        "rivereast|sat|17:15|standard",
+        "rivereast|sun|12:30|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-08&sort=date",
+        "https://www.bigscreen.com/Marquee.php?theater=8267&view=sched&showdate=2026-08-09&sort=date"
       ],
       "note": "",
-      "oneNight": true,
+      "oneNight": false,
       "soloTheater": true
     },
     {
@@ -586,12 +1053,11 @@
         "siskel|sat|11:00|standard"
       ],
       "sources": [
-        "https://purchase.siskelfilmcenter.org/websales/pages/list.aspx?epguid=a4b0e118-01a8-48f4-a68b-0dad266cea39"
+        "https://www.bigscreen.com/Marquee.php?theater=937&view=sched&showdate=2026-08-08&sort=date"
       ],
       "note": "",
       "oneNight": true,
-      "soloTheater": true,
-      "runtimeUnknown": true
+      "soloTheater": true
     }
   ]
 }
