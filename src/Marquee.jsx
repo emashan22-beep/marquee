@@ -183,6 +183,7 @@ const save = async (key, value) => {
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Karla:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
 
+html { scrollbar-gutter: stable; }
 .mq { --house:#13152A; --balcony:#1C2040; --rail:#2A2F58; --bulb:#FFB84D; --screen:#F0EDE3;
       --dim:#9BA0C4; --exit:#FF6B5A; --reel:#6FD8C6;
       background:var(--house); color:var(--screen); min-height:100vh;
@@ -543,6 +544,10 @@ const packLane = (lane, trackPx, pos) => {
 /* When a lane is too dense to place on the axis, group it instead.
    A barcode strip above a uniform grid of chips is two different
    encodings of the same times, and neither helps you read the other. */
+// Ten or more showtimes at one theater goes to bands. A fixed count, so
+// the choice can never change with the window width.
+const DENSE_AT = 10;
+
 const BANDS = [
   { id: "morning", label: "Morning", lo: 0, hi: 12 * 60 },
   { id: "afternoon", label: "Afternoon", lo: 12 * 60, hi: 17 * 60 },
@@ -560,14 +565,33 @@ function Ruler({ film, day, picked, onPick, keep }) {
   const trackRef = useRef(null);
   const [trackPx, setTrackPx] = useState(560);
 
+  /* Measuring the track feeds back into the page height, and page height
+     feeds back into the track: more rows -> taller page -> scrollbar
+     appears -> viewport narrows ~15px -> re-measure -> different row
+     count -> shorter page -> scrollbar goes -> repeat. That oscillation
+     is the flicker, and mid-swing you see two layouts at once.
+
+     Three brakes: a reserved scrollbar gutter (in CSS) so width stops
+     changing at all, a 16px dead zone so small changes are ignored, and
+     a rAF gate so we never write during the observer's own callback. */
   useLayoutEffect(() => {
     const el = trackRef.current;
     if (!el) return;
-    const measure = () => setTrackPx(el.offsetWidth || 560);
-    measure();
+    let frame = 0;
+    const measure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const next = el.offsetWidth || 560;
+        setTrackPx((prev) => (Math.abs(next - prev) < 16 ? prev : next));
+      });
+    };
+    setTrackPx(el.offsetWidth || 560);
     const ro = new ResizeObserver(measure);
     ro.observe(el);
-    return () => ro.disconnect();
+    return () => {
+      cancelAnimationFrame(frame);
+      ro.disconnect();
+    };
   }, []);
 
   const byTheater = THEATERS.filter((t) => shows.some((s) => s.theater === t.id));
@@ -580,14 +604,28 @@ function Ruler({ film, day, picked, onPick, keep }) {
   const hi = Math.max(AXIS_END, ...shows.map((s) => s.mins + 45));
   const pos = (m) => ((m - lo) / (hi - lo)) * 100;
 
+  // Anchor ticks to the start of the range rather than to even clock
+  // hours. Anchoring to even hours left the first stretch unlabelled
+  // whenever a film opened at, say, 11:00 — the axis began before the
+  // first number, which is what made the scale look wrong.
   const ticks = [];
-  for (let t = Math.ceil(lo / 120) * 120; t <= hi - 30; t += 120) ticks.push(t);
+  for (let t = Math.ceil(lo / 60) * 60; t <= hi - 40; t += 120) ticks.push(t);
+
+  // Pack every lane once. This used to run twice per render — once here
+  // to decide whether to draw the axis, once again while rendering — and
+  // with 45 cards on screen that doubled work is felt.
+  const lanes = byTheater.map((t) => {
+    const lane = shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins);
+    // Mode is decided by showing COUNT, never by measured width. Deciding
+    // it from packed row count made it width-dependent, and the two modes
+    // differ enough in height to toggle the page scrollbar — which changes
+    // the width, which flips the mode back. That loop is the flicker.
+    return { t, lane, dense: lane.length >= DENSE_AT, ...packLane(lane, trackPx, pos) };
+  });
 
   // If every lane is dense, nothing is positioned on the axis and drawing
   // it just implies a precision the chips below don't have.
-  const anyPositioned = byTheater.some(
-    (t) => packLane(shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins), trackPx, pos).rowCount <= 3
-  );
+  const anyPositioned = lanes.some((l) => !l.dense);
 
   return (
     <div className="mq-ruler">
@@ -599,20 +637,18 @@ function Ruler({ film, day, picked, onPick, keep }) {
             </div>
           ))}
       </div>
-      {byTheater.map((t) => {
-        const lane = shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins);
-        const { placed, rowCount } = packLane(lane, trackPx, pos);
+      {lanes.map(({ t, lane, placed, rowCount, dense }) => {
         return (
           <div className="mq-lane" key={t.id}>
             <div className="mq-laneName">
               {t.short}
               <i>{t.dist} mi</i>
-              {lane.length > 8 && <i>{lane.length} shows</i>}
+              {lane.length >= DENSE_AT && <i>{lane.length} shows</i>}
             </div>
             {/* Stacking works up to a point. Past three rows the lane
                 becomes a wall, so switch to a density strip showing the
                 shape of the day plus a wrapped, readable list of times. */}
-            {rowCount > 3 ? (
+            {dense ? (
               <div className="mq-track">
                 {BANDS.map((b) => {
                   const inBand = lane.filter((x) => bandOf(x.mins).id === b.id);

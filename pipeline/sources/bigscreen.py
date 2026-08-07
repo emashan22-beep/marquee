@@ -18,6 +18,7 @@ Agile Ticketing calendar as the better source for series names.
 """
 
 import re
+import sys
 import datetime as dt
 from bs4 import BeautifulSoup
 from . import web
@@ -140,36 +141,73 @@ def _verify_page(html: str, theater_key: str, date: dt.date) -> None:
 
 
 TIME_RE = re.compile(r"\b\d{1,2}:\d{2}\s*[ap]?\.?m?\.?\b", re.I)
-JUNK_LINKS = {"movie poster", "poster", "photos", "videos", "reviews", "media",
-              "more", "showtimes", "read more"}
+# Links in a listing row that are NOT the film's title. Some are navigation,
+# some are promotional banners that happen to link to the movie page —
+# "One Night Only" is a marketing label, not a film.
+JUNK_LINKS = {
+    "movie poster", "poster", "photos", "videos", "reviews", "media", "more",
+    "showtimes", "read more", "watch trailer", "trailer", "buy tickets",
+    "tickets", "details", "info", "cast", "synopsis",
+}
+PROMO_LABELS = {
+    "one night only", "special engagement", "advance screening", "early access",
+    "fan event", "sneak peek", "limited engagement", "encore", "encore screening",
+    "premiere event", "opening night", "double feature", "marathon",
+    "sensory friendly", "open caption", "no passes", "coming soon", "now playing",
+    "special event", "fathom event", "fathom events", "re-release", "rerelease",
+    "anniversary", "final week", "last chance",
+}
+SKIP_TEXT = JUNK_LINKS | PROMO_LABELS
 
 
-def _title_from_anchor(a) -> str:
-    """The visible text, or the link's title attribute as a fallback.
+def _attr_title(a) -> str:
+    """From title="View showtimes and information for <FILM>".
 
-    The poster link in each row wraps an <img> and so has NO text at all —
-    get_text() returns "". Taking the first matching anchor therefore
-    yielded an empty title and silently skipped every row. Its title
-    attribute reads "View showtimes and information for <FILM>", which is
-    a perfectly good source.
+    This is the authoritative source and is now tried FIRST. Visible link
+    text is unreliable: the poster link has none at all, and promotional
+    banners carry text like "One Night Only" that is not the film.
     """
-    txt = a.get_text(" ", strip=True)
-    if txt and txt.lower() not in JUNK_LINKS:
-        return txt
-    attr = a.get("title") or ""
-    m = re.search(r"(?:information|reviews)\s+for\s+(.+?)\s*$", attr)
-    if m:
-        return m.group(1).strip()
-    return ""
+    m = re.search(r"(?:information|reviews)\s+for\s+(.+?)\s*$", a.get("title") or "")
+    return m.group(1).strip() if m else ""
 
 
-def _row_title(tr) -> str:
+def _row_title(tr) -> tuple[str, str]:
+    """Returns (title, promo_note)."""
+    anchors = tr.find_all("a", href=re.compile(r"NowShowing\.php\?movie="))
+    promo = ""
+
+    # 1. the title attribute, which names the film explicitly
+    for a in anchors:
+        t = _attr_title(a)
+        if t and t.lower() not in SKIP_TEXT:
+            for b in anchors:
+                bt = b.get_text(" ", strip=True).lower()
+                if bt in PROMO_LABELS:
+                    promo = bt
+            return t, promo
+
+    # 2. visible link text, skipping navigation and promo banners
     best = ""
-    for a in tr.find_all("a", href=re.compile(r"NowShowing\.php\?movie=")):
-        t = _title_from_anchor(a)
-        if len(t) > len(best):
-            best = t
-    return best
+    for a in anchors:
+        txt = a.get_text(" ", strip=True)
+        low = txt.lower()
+        if low in PROMO_LABELS:
+            promo = low
+            continue
+        if not txt or low in JUNK_LINKS:
+            continue
+        if len(txt) > len(best):
+            best = txt
+    if best:
+        return best, promo
+
+    # 3. last resort: the poster's alt text, if it isn't boilerplate
+    for img in tr.find_all("img", alt=True):
+        alt = img["alt"].strip()
+        if alt and alt.lower() not in SKIP_TEXT:
+            return alt, promo
+
+    return "", promo
 
 
 def _times_cell(cells) -> str:
@@ -197,8 +235,13 @@ def scrape(theater_key: str, date: dt.date) -> list[dict]:
         if not cells:
             continue
 
-        title = _row_title(tr)
+        title, promo = _row_title(tr)
         if not title:
+            continue
+        if title.lower() in SKIP_TEXT:
+            # Should be unreachable, but a promo label reaching the slate as
+            # a film is worse than a dropped row. Say so rather than ship it.
+            print(f"    skipped promo label posing as a title: {title!r}", file=sys.stderr)
             continue
 
         times_text = _times_cell(cells)
@@ -222,7 +265,8 @@ def scrape(theater_key: str, date: dt.date) -> list[dict]:
                 "starts_at": t.isoformat(timespec="minutes"),
                 "format": fmt,
                 "runtime_hint": _runtime(row_text),
-                "note": "",
+                # a promo banner is worth keeping as a note, just not as a title
+                "note": promo.title() if promo else "",
                 "ticket_url": "",
                 "source_url": url,
             })
