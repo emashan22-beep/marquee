@@ -285,6 +285,7 @@ const CSS = `
 
 /* the showtime ruler — signature element */
 .mq-ruler { margin-top:16px; background:var(--balcony); border:1px solid var(--rail); border-radius:9px; padding:14px 14px 8px; }
+.mq-axis.hidden { height:0; border:none; margin:0; }
 .mq-axis { position:relative; height:16px; margin-left:96px; border-bottom:1px solid var(--rail); }
 .mq-tick { position:absolute; top:0; transform:translateX(-50%); font-family:'Space Mono',monospace;
    font-size:10px; color:#6E739B; }
@@ -302,10 +303,10 @@ const CSS = `
 .mq-show.picked { background:var(--bulb); color:#13152A; border-color:var(--bulb); font-weight:700; }
 .mq-show.prem { border-color:var(--reel); }
 .mq-show sup { font-size:8.5px; letter-spacing:.06em; margin-left:4px; opacity:.85; text-transform:uppercase; }
-.mq-density { position:relative; height:15px; margin-bottom:9px; border-bottom:1px solid #ffffff14; }
-.mq-dot { position:absolute; bottom:0; width:2px; height:8px; background:#6E739B;
-   transform:translateX(-50%); border-radius:1px; }
-.mq-dot.prem { background:var(--reel); height:12px; width:2.5px; }
+.mq-band { display:flex; align-items:flex-start; gap:12px; padding:5px 0; }
+.mq-band + .mq-band { border-top:1px dashed #ffffff0D; }
+.mq-bandName { width:72px; flex:none; padding-top:5px; font-family:'Barlow Condensed',sans-serif;
+   text-transform:uppercase; font-size:11.5px; letter-spacing:.13em; color:#6E739B; }
 .mq-chips { display:flex; flex-wrap:wrap; gap:6px; }
 .mq-show.flat { position:static; transform:none; }
 .mq-rulerNote { font-size:11px; color:#6E739B; margin-top:8px; }
@@ -539,6 +540,19 @@ const packLane = (lane, trackPx, pos) => {
   return { placed, rowCount: Math.max(1, rows.length) };
 };
 
+/* When a lane is too dense to place on the axis, group it instead.
+   A barcode strip above a uniform grid of chips is two different
+   encodings of the same times, and neither helps you read the other. */
+const BANDS = [
+  { id: "morning", label: "Morning", lo: 0, hi: 12 * 60 },
+  { id: "afternoon", label: "Afternoon", lo: 12 * 60, hi: 17 * 60 },
+  { id: "evening", label: "Evening", lo: 17 * 60, hi: 21 * 60 },
+  { id: "late", label: "Late", lo: 21 * 60, hi: 99 * 60 },
+];
+// After-midnight showings are stored past 1440 (24:30, 25:15), so they
+// fall through to "Late" rather than wrapping back to morning.
+const bandOf = (mins) => BANDS.find((b) => mins >= b.lo && mins < b.hi) || BANDS[3];
+
 function Ruler({ film, day, picked, onPick, keep }) {
   const shows = film.showings
     .map((s) => parseShowing(s, film.id))
@@ -569,14 +583,21 @@ function Ruler({ film, day, picked, onPick, keep }) {
   const ticks = [];
   for (let t = Math.ceil(lo / 120) * 120; t <= hi - 30; t += 120) ticks.push(t);
 
+  // If every lane is dense, nothing is positioned on the axis and drawing
+  // it just implies a precision the chips below don't have.
+  const anyPositioned = byTheater.some(
+    (t) => packLane(shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins), trackPx, pos).rowCount <= 3
+  );
+
   return (
     <div className="mq-ruler">
-      <div className="mq-axis" ref={trackRef}>
-        {ticks.map((t) => (
-          <div key={t} className="mq-tick" style={{ left: `${pos(t)}%` }}>
-            {fmtTime(t).replace(":00", "")}
-          </div>
-        ))}
+      <div className={`mq-axis${anyPositioned ? "" : " hidden"}`} ref={trackRef}>
+        {anyPositioned &&
+          ticks.map((t) => (
+            <div key={t} className="mq-tick" style={{ left: `${pos(t)}%` }}>
+              {fmtTime(t).replace(":00", "")}
+            </div>
+          ))}
       </div>
       {byTheater.map((t) => {
         const lane = shows.filter((s) => s.theater === t.id).sort((a, b) => a.mins - b.mins);
@@ -593,32 +614,32 @@ function Ruler({ film, day, picked, onPick, keep }) {
                 shape of the day plus a wrapped, readable list of times. */}
             {rowCount > 3 ? (
               <div className="mq-track">
-                <div className="mq-density">
-                  {lane.map((s) => (
-                    <span
-                      key={s.key}
-                      className={`mq-dot${PREMIUM.includes(s.format) ? " prem" : ""}`}
-                      style={{ left: `${pos(s.mins)}%` }}
-                    />
-                  ))}
-                </div>
-                <div className="mq-chips">
-                  {lane.map((s) => {
-                    const prem = PREMIUM.includes(s.format);
-                    const on = picked.includes(s.key);
-                    return (
-                      <button
-                        key={s.key}
-                        className={`mq-show flat${prem ? " prem" : ""}${on ? " picked" : ""}`}
-                        onClick={() => onPick(s)}
-                        title={`${fmtTime(s.mins)} · ${t.name} · ${FORMAT_LABEL[s.format]} — ${on ? "remove from plan" : "add to plan"}`}
-                      >
-                        {fmtShort(s.mins)}
-                        {prem && <sup>{FORMAT_LABEL[s.format]}</sup>}
-                      </button>
-                    );
-                  })}
-                </div>
+                {BANDS.map((b) => {
+                  const inBand = lane.filter((x) => bandOf(x.mins).id === b.id);
+                  if (!inBand.length) return null;
+                  return (
+                    <div className="mq-band" key={b.id}>
+                      <div className="mq-bandName">{b.label}</div>
+                      <div className="mq-chips">
+                        {inBand.map((s2) => {
+                          const prem = PREMIUM.includes(s2.format);
+                          const on = picked.includes(s2.key);
+                          return (
+                            <button
+                              key={s2.key}
+                              className={`mq-show flat${prem ? " prem" : ""}${on ? " picked" : ""}`}
+                              onClick={() => onPick(s2)}
+                              title={`${fmtTime(s2.mins)} · ${t.name} · ${FORMAT_LABEL[s2.format]} — ${on ? "remove from plan" : "add to plan"}`}
+                            >
+                              {fmtShort(s2.mins)}
+                              {prem && <sup>{FORMAT_LABEL[s2.format]}</sup>}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             ) : (
             <div className="mq-track" style={{ height: rowCount * 26 + 10 }}>
